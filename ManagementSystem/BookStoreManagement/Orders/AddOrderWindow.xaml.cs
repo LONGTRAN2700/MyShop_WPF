@@ -125,6 +125,8 @@ namespace BookStoreManagement.Orders
         }
 
         private BindingList<OrderDetail> _lib = new BindingList<OrderDetail>();
+
+        private int TotalAmount = 0;
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             var Result = MessageBox.Show("Bạn có chắc chắn muốn lưu đơn hàng này ?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Information);
@@ -136,17 +138,30 @@ namespace BookStoreManagement.Orders
                 AddCustomer.Visibility = Visibility.Hidden;
 
                 //Tạo 1 chi tiết đơn hàng
+                Product? selectedProduct = txtProduct.SelectedItem as Product;
 
-                var orderdetail = new OrderDetail
+                if (selectedProduct != null)
                 {
-                    //ProductName = book.BookName,
-                    UnitPrice = toINT(txtUnitPrice.Text),
-                    Quantity = toINT(txtQuantity.Text),
-                    //Price = UnitPrice * Quantity,
-                };
-                _lib.Add(orderdetail);
+                    var orderdetail = new OrderDetail
+                    {
+                        ProductName = selectedProduct.BookName,
+                        UnitPrice = toINT(txtUnitPrice.Text),
+                        Quantity = toINT(txtQuantity.Text),
+
+                    };
+                    orderdetail.Price = orderdetail.UnitPrice * orderdetail.Quantity;
+                    _lib.Add(orderdetail);
+
+                    //Cập nhật ô tổng tiền
+                    TotalAmount = TotalAmount + orderdetail.Price;
+                    txtTotalAmount.Text = TotalAmount.ToString();
+                }
+                else
+                    return;
+              
 
                 DetailOrderList.ItemsSource = _lib;
+
             }              
             else
                 return;

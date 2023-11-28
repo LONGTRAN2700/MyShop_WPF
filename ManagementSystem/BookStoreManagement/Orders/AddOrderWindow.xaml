@@ -338,7 +338,7 @@
                 Style="{StaticResource FlatButton}" Click="ConfirmButton_Click"/>
         
         <StackPanel Grid.Row="0" Grid.Column="0"
-                            Margin="20, 0, 0, 40"
+                            Margin="20, 0, 0, 60"
                      VerticalAlignment="Bottom">
             <StackPanel Orientation="Horizontal">
                 <Label  Content="Tổng tiền" 
@@ -357,15 +357,16 @@
             </StackPanel>
 
             <TextBox Name="txtTotalAmount"
-                             Width="180" Height="30"
-                             FontSize="12"
-                             FontWeight="Medium"
-                             Margin="4 0 0 0"
-                             IsEnabled="False"
-                             Foreground="Gray"
-                             HorizontalAlignment="Left"
-                             Style="{StaticResource FlatTextBox}"
-                             Background="Transparent"/>
+                     Text=""
+                     Width="220" Height="30"
+                     FontSize="12"
+                     FontWeight="Medium"
+                     Margin="4 0 0 0"
+                     IsEnabled="False"
+                     Foreground="Red"
+                     HorizontalAlignment="Left"
+                     Style="{StaticResource FlatTextBox}"
+                     Background="Transparent"/>
         </StackPanel>
 
 
@@ -379,57 +380,51 @@
             <!--Cột tên sản phẩm-->
             <TextBlock Text="Tên sản phẩm"
                        TextAlignment="Center"
-                       FontSize="11"
+                       FontSize="10"
                        FontWeight="Medium"
                        Height="30"
                        Width="80"
                        Padding="0,10,0,0"
-                       Margin="50,0,5,0"
+                       Margin="70,0,5,0"
                        Background="Transparent"/>
 
             <!--Cột đơn giá-->
             <TextBlock Text="Đơn giá"
                        TextAlignment="Center"
-                       FontSize="11"
+                       FontSize="10"
                        FontWeight="Medium"
                        Padding="0,10,0,0"
                        Height="30"
-                       Width="60"
-                       Margin="30, 0,0,0"
+                       Width="50"
+                       Margin="50, 0,0,0"
                        Background="Transparent"/>
 
 
             <!--Cột số lượng -->
                 <TextBlock Text="Số lượng"
                            TextAlignment="Center"
-                           FontSize="11"
+                           FontSize="10"
                            FontWeight="Medium"
                            Padding="0,10,0,0"
                            Height="30"
-                           Width="70"
-                           Margin="30,0,0,0"
+                           Width="50"
+                           Margin="25,0,0,0"
                            Background="Transparent"/>
               
             <!--Cột thành tiền-->
-            <StackPanel Orientation="Horizontal"
-                        Width="120"
-                        Height="30"
-                        Margin="10,0,5,0">
-                <TextBlock Text="Thành tiền"
+            <TextBlock Text="Thành tiền"
                            TextAlignment="Center"
-                           FontSize="11"
+                           FontSize="10"
                            FontWeight="Medium"
                            Padding="0,10,0,0"
                            Height="30"
-                           Width="90"
-                           Margin="10,0,0,0"
+                           Width="60"
+                           Margin="30,0,0,0"
                            Background="Transparent"/>
-
-            </StackPanel>
         </StackPanel>
 
         <ListView Name="DetailOrderList" 
-                  Margin="20,100,10,100"
+                  Margin="20,100,10,120"
                   Grid.Column="0"
                   Background="Transparent"
                   BorderBrush="Brown"
@@ -477,8 +472,8 @@
                             <!--Tên sản phẩm-->
                             <TextBlock Text="{Binding ProductName}"
                                        FontSize="9"
-                                       Width="120"
-                                       Margin="0, 0, 0, 0"
+                                       Width="150"
+                                       Margin="5, 0, 0, 0"
                                        TextAlignment="Center"
                                        FontWeight="Medium"/>
 
@@ -487,23 +482,23 @@
                                        FontSize="9"
                                        Width="70"
                                        TextAlignment="Center"
-                                       Margin="0, 0, 0, 0"
+                                       Margin="10, 0, 0, 0"
                                        FontWeight="Medium"/>
 
                             <!--Số lượng-->
                             <TextBlock Text="{Binding Quantity}"
                                        FontSize="11"
-                                       Width="80"
+                                       Width="40"
                                        TextAlignment="Center"
-                                       Margin="35, 0, 10, 0"
+                                       Margin="20, 0, 0, 0"
                                        FontWeight="Medium"/>
 
                             <!--Thành tiền-->
                             <TextBlock Text="{Binding Price, Converter={StaticResource MoneyConverter}}"
                                        FontSize="9"
-                                       Width="140"
+                                       Width="110"
                                        TextAlignment="Center"
-                                       Margin="0, 0, 10, 0"
+                                       Margin="10, 0, 10, 0"
                                        FontWeight="Medium"
                                        />
                         </StackPanel>
