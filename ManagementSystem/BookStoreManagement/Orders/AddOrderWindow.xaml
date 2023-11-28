@@ -1,0 +1,339 @@
+﻿<UserControl x:Class="BookStoreManagement.Orders.AddOrderWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookStoreManagement"
+             mc:Ignorable="d" 
+             Height="600" Width="790" Loaded="AddOrder_Loaded">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <local:RelativeToAbsoluteConverter x:Key="AbsoluteConverter"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Resource/UIResource.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition ></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="BackButton"
+                Grid.Column="0"
+                Grid.Row="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="20, 5 ,0, 0 "
+                Width="30"
+                Height="30"
+                Background="Transparent"
+                BorderBrush="Green"
+                BorderThickness="2,2,2,2"
+                FontSize="40"
+                FontWeight="Bold"
+                Style="{StaticResource CustomButtonTemplate}"
+                Click="BackButton_Click">
+            <Image Source="../Images/Products/back.png"
+                   RenderOptions.BitmapScalingMode="HighQuality"/>
+        </Button>
+
+        <Label Content="THÊM ĐƠN HÀNG MỚI"
+               FontSize="18"
+               FontWeight="Medium"
+               Grid.ColumnSpan="2"
+                HorizontalAlignment="Center"
+               Margin="0, 0, 0, 0"/>
+        <!--Thông tin đơn hàng-->
+        <Border Name="addBorder"
+                CornerRadius="10" 
+                 BorderBrush="Brown"
+                BorderThickness="2"
+                VerticalAlignment="Top"
+                Margin="20, 60, 0, 0"
+                HorizontalAlignment="Left" 
+                Width="280" Height="250" Grid.ColumnSpan="2">
+            <Border.Effect>
+                <DropShadowEffect
+                    Color="Black"
+                    Direction="320"
+                    BlurRadius="20"
+                    Opacity="0" />
+            </Border.Effect>
+            <StackPanel Width="250" Height="260" Margin="0, 0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="60" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Tiêu đề -->
+                    <Label Content="Thông tin đơn hàng"
+                           FontSize="16"
+                           FontWeight="Medium"
+                           HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                           Grid.Row="0"/>
+
+                    <!-- Khách hàng -->
+                    <StackPanel Grid.Row="1" Grid.Column="0"                          
+                            Margin="10, 0, 0, 0" >
+                        <StackPanel Orientation="Horizontal">
+                            <Label  Content="Khách hàng:" 
+                                    FontSize="10"
+                                    FontWeight="Bold"
+                                    Foreground="Brown"
+                                    HorizontalAlignment="Left"/>
+                            <TextBlock Name="txtErrorCustomer"
+                                   Text="*Giá cả không hợp lệ"
+                                   FontSize="9"
+                                   Width="107"
+                                   Visibility="Hidden"
+                                   VerticalAlignment="Center"
+                                   Foreground="Red"
+                                   Margin="0, 0, 0, 0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    >
+                            <ComboBox Name="txtCustomer"
+                             Width="180" Height="30"
+                             FontSize="12"
+                             FontWeight="Medium"
+                             Margin="4 0 0 0"
+                             HorizontalAlignment="Left"
+                             Style="{StaticResource ComboBoxFlatStyle}"
+                             Background="Transparent">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding CustomerID}"/>
+                                            <TextBlock Text=" - "/>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            <Button x:Name="AddCustomer"
+                                    Content="➕"
+                                    Height="30"
+                                    Width="30"
+                                    Foreground="White"
+                                    Margin="3,0,0,0"
+                                    FontSize="13"
+                                    Background="Brown"
+                                    FontWeight="Bold"
+                                    BorderBrush="Transparent" Click="AddCustomer_Click"/>
+                        </StackPanel>
+
+
+                    </StackPanel>
+
+                    <!-- Ngày tạo -->
+                    <StackPanel Grid.Row="2" Grid.Column="0"
+                            Margin="10, 0, 0, 0">
+                        <StackPanel Orientation="Horizontal">
+                            <Label  Content="Ngày tạo" 
+                            FontSize="10"
+                            FontWeight="Bold"
+                            Foreground="Brown"
+                            HorizontalAlignment="Left"/>
+                            <TextBlock Name="txtErrorQua"
+                                   Text="*Số lượng không hợp lệ"
+                                   FontSize="9"
+                                   Width="107"
+                                   Visibility="Hidden"
+                                   VerticalAlignment="Center"
+                                   Foreground="Red"
+                                   Margin="0, 0, 0, 0"/>
+                        </StackPanel>
+
+                        <TextBox Name="txtOrderDate"
+                             Width="180" Height="30"
+                             FontSize="12"
+                             FontWeight="Medium"
+                             Margin="4 0 0 0"
+                             HorizontalAlignment="Left"
+                             IsEnabled="False"
+                             Foreground="Gray"
+                             Style="{StaticResource FlatTextBox}"
+                             Background="Transparent"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="3" Grid.Column="0"
+                            Margin="10, 0, 0, 0">
+                        <StackPanel Orientation="Horizontal">
+                            <Label  Content="Tổng tiền" 
+                            FontSize="10"
+                            FontWeight="Bold"
+                            Foreground="Brown"
+                            HorizontalAlignment="Left"/>
+                            <TextBlock Name="txtErrorTotalAmount"
+                                   Text="*Số lượng không hợp lệ"
+                                   FontSize="9"
+                                   Width="107"
+                                   Visibility="Hidden"
+                                   VerticalAlignment="Center"
+                                   Foreground="Red"
+                                   Margin="0, 0, 0, 0"/>
+                        </StackPanel>
+
+                        <TextBox Name="txtTotalAmount"
+                             Width="180" Height="30"
+                             FontSize="12"
+                             FontWeight="Medium"
+                              Margin="4 0 0 0"
+                             HorizontalAlignment="Left"
+                             Style="{StaticResource FlatTextBox}"
+                             Background="Transparent"/>
+                    </StackPanel>
+                </Grid>
+
+            </StackPanel>
+        </Border>
+
+        <!--Chi tiết đơn hàng-->
+        <Border Name="detailOrderBorder"
+                CornerRadius="10" 
+                BorderBrush="Brown"
+                BorderThickness="2"
+                VerticalAlignment="Top"
+                Margin="0, 60, 20, 0"
+                HorizontalAlignment="Right" 
+                Width="280" Height="250" 
+                Grid.Column="1">
+            <Border.Effect>
+                <DropShadowEffect
+                    Color="Black"
+                    Direction="320"
+                    BlurRadius="20"
+                    Opacity="0" />
+            </Border.Effect>
+            <StackPanel Width="250" Margin="13,0,13,-2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="60" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Tiêu đề -->
+                    <Label Content="Chi tiết đơn hàng"
+                           FontSize="16"
+                           FontWeight="Medium"
+                           HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                           Grid.Row="0"/>
+
+                    <!-- Sản phẩm -->
+                    <StackPanel Name="productStackPanel"
+                                Grid.Row="1" Grid.Column="0"                          
+                                Margin="10, 0, 50, 0" >
+                        <StackPanel Orientation="Horizontal">
+                            <Label  Content="Sản phẩm:" 
+                                    FontSize="10"
+                                    FontWeight="Bold"
+                                    Foreground="Brown"
+                                    HorizontalAlignment="Left"/>
+                            <TextBlock Name="txtError"
+                                   Text="*Giá cả không hợp lệ"
+                                   FontSize="9"
+                                   Width="107"
+                                   Visibility="Hidden"
+                                   VerticalAlignment="Center"
+                                   Foreground="Red"
+                                   Margin="0, 0, 0, 0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox Name="txtProduct"
+                             Width="180" Height="25"
+                             FontSize="12"
+                             FontWeight="Medium"
+                             Margin="4 0 0 0"
+                             HorizontalAlignment="Left"
+                             Style="{StaticResource ComboBoxFlatStyle}"
+                             Background="Transparent"/>
+
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Image Source="{Binding ImageURL, Converter={StaticResource AbsoluteConverter}}"
+                           Width="50" Height="50"
+                           Grid.Row="1" Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           Margin="0,0,0,5"/>
+
+                    <!-- Ngày tạo -->
+                    <StackPanel Grid.Row="2" Grid.Column="0"
+                            Margin="10, 0, 0, 0">
+                        <StackPanel Orientation="Horizontal">
+                            <Label  Content="Đơn giá" 
+                            FontSize="10"
+                            FontWeight="Bold"
+                            Foreground="Brown"
+                            HorizontalAlignment="Left"/>
+                            <TextBlock Name="txtErrorPrice"
+                                   Text="*Số lượng không hợp lệ"
+                                   FontSize="9"
+                                   Width="107"
+                                   Visibility="Hidden"
+                                   VerticalAlignment="Center"
+                                   Foreground="Red"
+                                   Margin="0, 0, 0, 0"/>
+                        </StackPanel>
+
+                        <TextBox Name="txtBBB"
+                             Width="180" Height="25"
+                             FontSize="12"
+                             FontWeight="Medium"
+                              Margin="4 0 0 0"
+                             HorizontalAlignment="Left"
+                             Style="{StaticResource FlatTextBox}"
+                             Background="Transparent"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="3" 
+                                Grid.Column="0"
+                                Margin="10, 0, 0, 0"
+                                Orientation="Horizontal">
+                        <Label  Content="Số lượng: " 
+                            FontSize="10"
+                            FontWeight="Bold"
+                            Foreground="Brown"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"/>
+                        <Button Name="SubQuantity"
+                                Content="➖"
+                                FontWeight="Bold"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                Width="20"
+                                Height="20"
+                                FontSize="8"/>
+                        <TextBlock Name="txtCCC"
+                                 Text="1"
+                                 TextAlignment="Center"
+                                 Width="30" Height="30"
+                                 FontSize="10"
+                                 FontWeight="Medium"
+                                 Margin="0 0 0 0"
+                                 Padding="0, 8, 0, 0"
+                             Background="Transparent"/>
+                        <Button Name="AddQuantity"
+                                Content="➕"
+                                FontWeight="Bold"
+                                FontSize="8"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                Width="20"
+                                Height="20"/>
+                    </StackPanel>
+                </Grid>
+
+            </StackPanel>
+        </Border>
+
+    </Grid>
+</UserControl>
