@@ -8,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -76,14 +77,14 @@ namespace BookStoreManagement.Orders
         private void BindingProducts()
         {
             string sql = @"SELECT* 
-                           FROM Products as P, ProductCategories as C
+                           FROM Products P, ProductCategories C
                            WHERE P.CategoryId = C.CategoryId";
 
             DataTable dt = DBConnect.DB.LoadCSDL(sql);
 
-            BindingList<Product> _lib = new BindingList<Product>();
+            //BindingList<Product> _lib = new BindingList<Product>();
 
-            //ObservableCollection<Product> _lib = new ObservableCollection<Product>();
+            ObservableCollection<Product> _lib = new ObservableCollection<Product>();
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
@@ -101,6 +102,7 @@ namespace BookStoreManagement.Orders
                 };
                 _lib.Add(product);
             }
+
             txtProduct.ItemsSource = _lib;
         }
 
@@ -120,6 +122,76 @@ namespace BookStoreManagement.Orders
             }
             else
                 return;
+        }
+
+        private BindingList<OrderDetail> _lib = new BindingList<OrderDetail>();
+        private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            var Result = MessageBox.Show("Bạn có chắc chắn muốn lưu đơn hàng này ?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            if (Result == MessageBoxResult.Yes)
+            {
+                //Xử lí không cho thay đổi dữ liệu khách hàng
+                txtCustomer.IsEnabled = false;
+                AddCustomer.IsEnabled = false;
+                AddCustomer.Visibility = Visibility.Hidden;
+
+                //Tạo 1 chi tiết đơn hàng
+
+                var orderdetail = new OrderDetail
+                {
+                    //ProductName = book.BookName,
+                    UnitPrice = toINT(txtUnitPrice.Text),
+                    Quantity = toINT(txtQuantity.Text),
+                    //Price = UnitPrice * Quantity,
+                };
+                _lib.Add(orderdetail);
+
+                DetailOrderList.ItemsSource = _lib;
+            }              
+            else
+                return;
+
+            
+        }
+
+        //Hàm chuyển chuỗi về số nguyên
+        private int toINT(string text)
+        {
+            // Chuyển đổi chuỗi thành số nguyên
+            if (int.TryParse(text, out int number))
+            {
+                return number;
+            }
+            else
+            {
+                return 0; 
+            }
+        }
+        private void AddQuantity_Click(object sender, RoutedEventArgs e)
+        {
+            int quantity;
+            quantity = toINT(txtQuantity.Text);
+
+            quantity++;
+            txtQuantity.Text = quantity.ToString();      
+        }
+
+        private void SubQuantity_Click(object sender, RoutedEventArgs e)
+        {
+
+            int quantity;
+            quantity = toINT(txtQuantity.Text);
+            if (quantity == 1)
+            {
+                return;
+            }
+            else
+            {
+                quantity--;
+                txtQuantity.Text = quantity.ToString();
+            }
+                
+
         }
     }
 }

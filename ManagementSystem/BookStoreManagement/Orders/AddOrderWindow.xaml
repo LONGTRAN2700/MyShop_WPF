@@ -5,10 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookStoreManagement"
              mc:Ignorable="d" 
-             Height="600" Width="790" Loaded="AddOrder_Loaded">
+             Height="530" Width="790" Loaded="AddOrder_Loaded">
     <UserControl.Resources>
         <ResourceDictionary>
             <local:RelativeToAbsoluteConverter x:Key="AbsoluteConverter"/>
+            <local:ToMoneyConverter x:Key="MoneyConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resource/UIResource.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -16,7 +17,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition ></ColumnDefinition>
+            <ColumnDefinition Width="450"></ColumnDefinition>
             <ColumnDefinition ></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Button x:Name="BackButton"
@@ -38,21 +39,23 @@
                    RenderOptions.BitmapScalingMode="HighQuality"/>
         </Button>
 
-        <Label Content="THÊM ĐƠN HÀNG MỚI"
+        <!--<Label Content="THÊM ĐƠN HÀNG MỚI"
                FontSize="18"
                FontWeight="Medium"
                Grid.ColumnSpan="2"
-                HorizontalAlignment="Center"
-               Margin="0, 0, 0, 0"/>
+               HorizontalAlignment="Center"
+               Margin="0, 0, 0, 0"/>-->
         <!--Thông tin đơn hàng-->
         <Border Name="addBorder"
-                CornerRadius="10" 
+                CornerRadius="5" 
                  BorderBrush="Brown"
+                 Background="Transparent"
                 BorderThickness="2"
                 VerticalAlignment="Top"
-                Margin="20, 60, 0, 0"
-                HorizontalAlignment="Left" 
-                Width="280" Height="250" Grid.ColumnSpan="2">
+                Margin="0, 10, 30, 0"
+                HorizontalAlignment="Right" 
+                Width="280" Height="180"
+                 Grid.Column="1">
             <Border.Effect>
                 <DropShadowEffect
                     Color="Black"
@@ -60,11 +63,10 @@
                     BlurRadius="20"
                     Opacity="0" />
             </Border.Effect>
-            <StackPanel Width="250" Height="260" Margin="0, 0,0,0">
+            <StackPanel Width="250" Height="180" Margin="0, 0,0,0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
-                        <RowDefinition Height="60" />
                         <RowDefinition Height="60" />
                         <RowDefinition Height="60" />
                     </Grid.RowDefinitions>
@@ -139,7 +141,7 @@
                             FontWeight="Bold"
                             Foreground="Brown"
                             HorizontalAlignment="Left"/>
-                            <TextBlock Name="txtErrorQua"
+                            <TextBlock Name="txtErrorOrderDate"
                                    Text="*Số lượng không hợp lệ"
                                    FontSize="9"
                                    Width="107"
@@ -160,34 +162,7 @@
                              Style="{StaticResource FlatTextBox}"
                              Background="Transparent"/>
                     </StackPanel>
-
-                    <StackPanel Grid.Row="3" Grid.Column="0"
-                            Margin="10, 0, 0, 0">
-                        <StackPanel Orientation="Horizontal">
-                            <Label  Content="Tổng tiền" 
-                            FontSize="10"
-                            FontWeight="Bold"
-                            Foreground="Brown"
-                            HorizontalAlignment="Left"/>
-                            <TextBlock Name="txtErrorTotalAmount"
-                                   Text="*Số lượng không hợp lệ"
-                                   FontSize="9"
-                                   Width="107"
-                                   Visibility="Hidden"
-                                   VerticalAlignment="Center"
-                                   Foreground="Red"
-                                   Margin="0, 0, 0, 0"/>
-                        </StackPanel>
-
-                        <TextBox Name="txtTotalAmount"
-                             Width="180" Height="30"
-                             FontSize="12"
-                             FontWeight="Medium"
-                              Margin="4 0 0 0"
-                             HorizontalAlignment="Left"
-                             Style="{StaticResource FlatTextBox}"
-                             Background="Transparent"/>
-                    </StackPanel>
+                
                 </Grid>
 
             </StackPanel>
@@ -195,13 +170,13 @@
 
         <!--Chi tiết đơn hàng-->
         <Border Name="detailOrderBorder"
-                CornerRadius="10" 
+                CornerRadius="5" 
                 BorderBrush="Brown"
                 BorderThickness="2"
-                VerticalAlignment="Top"
-                Margin="0, 60, 20, 0"
+                VerticalAlignment="Bottom"
+                Margin="0, 0, 30, 120"
                 HorizontalAlignment="Right" 
-                Width="280" Height="250" 
+                Width="280" Height="210" 
                 Grid.Column="1">
             <Border.Effect>
                 <DropShadowEffect
@@ -210,17 +185,19 @@
                     BlurRadius="20"
                     Opacity="0" />
             </Border.Effect>
-            <StackPanel Width="250" Margin="13,0,13,-2">
+            <StackPanel Width="250" 
+                        Height="200"
+                        Margin="0,0,0,20">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                         <RowDefinition Height="60" />
                         <RowDefinition Height="60" />
-                        <RowDefinition Height="60" />
+                        <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
 
                     <!-- Tiêu đề -->
-                    <Label Content="Chi tiết đơn hàng"
+                    <Label Content="Thêm vào giỏ hàng"
                            FontSize="16"
                            FontWeight="Medium"
                            HorizontalAlignment="Center"
@@ -237,7 +214,7 @@
                                     FontWeight="Bold"
                                     Foreground="Brown"
                                     HorizontalAlignment="Left"/>
-                            <TextBlock Name="txtError"
+                            <TextBlock Name="txtErrorProduct"
                                    Text="*Giá cả không hợp lệ"
                                    FontSize="9"
                                    Width="107"
@@ -248,22 +225,33 @@
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <ComboBox Name="txtProduct"
-                             Width="180" Height="25"
+                             Width="180" Height="30"
                              FontSize="12"
                              FontWeight="Medium"
                              Margin="4 0 0 0"
-                             HorizontalAlignment="Left"
+                             HorizontalAlignment="Left"                            
                              Style="{StaticResource ComboBoxFlatStyle}"
-                             Background="Transparent"/>
+                             Background="Transparent">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Name ="txtBookId" Text="{Binding BookId}"/>
+                                            <TextBlock Text=" - "/>
+                                            <TextBlock Text="{Binding BookName}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
 
                         </StackPanel>
                     </StackPanel>
 
-                    <Image Source="{Binding ImageURL, Converter={StaticResource AbsoluteConverter}}"
-                           Width="50" Height="50"
+                    <Image Source="{Binding SelectedItem.ImageURL , ElementName=txtProduct, Converter={StaticResource AbsoluteConverter}}" 
+                           Width="55" Height="45"
                            Grid.Row="1" Grid.Column="0"
                            HorizontalAlignment="Right"
-                           Margin="0,0,0,5"/>
+                           RenderOptions.BitmapScalingMode="HighQuality"
+                           Margin="0,0,15,0"/>
 
                     <!-- Ngày tạo -->
                     <StackPanel Grid.Row="2" Grid.Column="0"
@@ -284,14 +272,17 @@
                                    Margin="0, 0, 0, 0"/>
                         </StackPanel>
 
-                        <TextBox Name="txtBBB"
-                             Width="180" Height="25"
-                             FontSize="12"
-                             FontWeight="Medium"
-                              Margin="4 0 0 0"
-                             HorizontalAlignment="Left"
-                             Style="{StaticResource FlatTextBox}"
-                             Background="Transparent"/>
+                        <TextBox Name="txtUnitPrice"
+                                 Text="{Binding SelectedItem.Price, ElementName=txtProduct}"
+                                 Width="180" Height="30"
+                                 FontSize="12"
+                                 FontWeight="Medium"
+                                 Margin="4 0 0 0"
+                                 IsEnabled="False"
+                                 Foreground="Gray"
+                                 HorizontalAlignment="Left"
+                                 Style="{StaticResource FlatTextBox}"
+                                 Background="Transparent"/>
                     </StackPanel>
 
                     <StackPanel Grid.Row="3" 
@@ -311,8 +302,9 @@
                                 BorderBrush="Transparent"
                                 Width="20"
                                 Height="20"
-                                FontSize="8"/>
-                        <TextBlock Name="txtCCC"
+                                FontSize="8"
+                                Click="SubQuantity_Click"/>
+                        <TextBlock Name="txtQuantity"
                                  Text="1"
                                  TextAlignment="Center"
                                  Width="30" Height="30"
@@ -328,12 +320,196 @@
                                 Background="Transparent"
                                 BorderBrush="Transparent"
                                 Width="20"
-                                Height="20"/>
+                                Height="20" Click="AddQuantity_Click"/>
                     </StackPanel>
                 </Grid>
 
             </StackPanel>
         </Border>
 
+        <Button x:Name="ConfirmButton"
+                Content="Xác nhận"
+                Width="280"
+                Height="35"
+                Grid.Column="1"
+                VerticalAlignment="Bottom"
+                Margin="0,0,0,65"
+                Foreground="White"
+                Style="{StaticResource FlatButton}" Click="ConfirmButton_Click"/>
+        
+        <StackPanel Grid.Row="0" Grid.Column="0"
+                            Margin="20, 0, 0, 40"
+                     VerticalAlignment="Bottom">
+            <StackPanel Orientation="Horizontal">
+                <Label  Content="Tổng tiền" 
+                            FontSize="10"
+                            FontWeight="Bold"
+                            Foreground="Brown"
+                            HorizontalAlignment="Left"/>
+                <TextBlock Name="txtErrorTotalAmount"
+                                   Text="*Số lượng không hợp lệ"
+                                   FontSize="9"
+                                   Width="107"
+                                   Visibility="Hidden"
+                                   VerticalAlignment="Center"
+                                   Foreground="Red"
+                                   Margin="0, 0, 0, 0"/>
+            </StackPanel>
+
+            <TextBox Name="txtTotalAmount"
+                             Width="180" Height="30"
+                             FontSize="12"
+                             FontWeight="Medium"
+                             Margin="4 0 0 0"
+                             IsEnabled="False"
+                             Foreground="Gray"
+                             HorizontalAlignment="Left"
+                             Style="{StaticResource FlatTextBox}"
+                             Background="Transparent"/>
+        </StackPanel>
+
+
+
+        <StackPanel Grid.Column="0"
+                    VerticalAlignment="Top"
+                    Height="50"
+                    Width="450"
+                    Margin="0,50,0,0"
+                    Orientation="Horizontal">
+            <!--Cột tên sản phẩm-->
+            <TextBlock Text="Tên sản phẩm"
+                       TextAlignment="Center"
+                       FontSize="11"
+                       FontWeight="Medium"
+                       Height="30"
+                       Width="80"
+                       Padding="0,10,0,0"
+                       Margin="50,0,5,0"
+                       Background="Transparent"/>
+
+            <!--Cột đơn giá-->
+            <TextBlock Text="Đơn giá"
+                       TextAlignment="Center"
+                       FontSize="11"
+                       FontWeight="Medium"
+                       Padding="0,10,0,0"
+                       Height="30"
+                       Width="60"
+                       Margin="30, 0,0,0"
+                       Background="Transparent"/>
+
+
+            <!--Cột số lượng -->
+                <TextBlock Text="Số lượng"
+                           TextAlignment="Center"
+                           FontSize="11"
+                           FontWeight="Medium"
+                           Padding="0,10,0,0"
+                           Height="30"
+                           Width="70"
+                           Margin="30,0,0,0"
+                           Background="Transparent"/>
+              
+            <!--Cột thành tiền-->
+            <StackPanel Orientation="Horizontal"
+                        Width="120"
+                        Height="30"
+                        Margin="10,0,5,0">
+                <TextBlock Text="Thành tiền"
+                           TextAlignment="Center"
+                           FontSize="11"
+                           FontWeight="Medium"
+                           Padding="0,10,0,0"
+                           Height="30"
+                           Width="90"
+                           Margin="10,0,0,0"
+                           Background="Transparent"/>
+
+            </StackPanel>
+        </StackPanel>
+
+        <ListView Name="DetailOrderList" 
+                  Margin="20,100,10,100"
+                  Grid.Column="0"
+                  Background="Transparent"
+                  BorderBrush="Brown"
+                  BorderThickness="1,2,1,2"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <ListView.ItemContainerStyle >
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border Background="{TemplateBinding Background}" 
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ContentPresenter />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="Red" />
+                                        <Setter Property="BorderThickness" Value="3, 1, 3, 1"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Button Name="detailOrderButton"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Margin="0, 7, 0, 7"
+                            Height ="25"
+                            Width="400"
+                            Background="LightGreen"
+                            BorderBrush="Transparent"                           
+                          
+                            Style="{StaticResource RoundedButtonStyle}">
+                        <StackPanel Margin="0, 0, 0, 0"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Width="400">
+                            <!--Tên sản phẩm-->
+                            <TextBlock Text="{Binding ProductName}"
+                                       FontSize="9"
+                                       Width="120"
+                                       Margin="0, 0, 0, 0"
+                                       TextAlignment="Center"
+                                       FontWeight="Medium"/>
+
+                            <!--Đơn giá-->
+                            <TextBlock Text="{Binding UnitPrice}"
+                                       FontSize="9"
+                                       Width="70"
+                                       TextAlignment="Center"
+                                       Margin="0, 0, 0, 0"
+                                       FontWeight="Medium"/>
+
+                            <!--Số lượng-->
+                            <TextBlock Text="{Binding Quantity}"
+                                       FontSize="11"
+                                       Width="80"
+                                       TextAlignment="Center"
+                                       Margin="35, 0, 10, 0"
+                                       FontWeight="Medium"/>
+
+                            <!--Thành tiền-->
+                            <TextBlock Text="{Binding Price, Converter={StaticResource MoneyConverter}}"
+                                       FontSize="9"
+                                       Width="140"
+                                       TextAlignment="Center"
+                                       Margin="0, 0, 10, 0"
+                                       FontWeight="Medium"
+                                       />
+                        </StackPanel>
+                    </Button>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 </UserControl>

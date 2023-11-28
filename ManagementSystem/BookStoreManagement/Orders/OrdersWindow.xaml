@@ -11,9 +11,7 @@
             <local:RelativeToAbsoluteConverter x:Key="AbsoluteConverter"/>
             <local:ToMoneyConverter x:Key="MoneyConverter"/>
             <ResourceDictionary.MergedDictionaries>
-
                 <ResourceDictionary Source="../Resource/UIResource.xaml"/>
-
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
