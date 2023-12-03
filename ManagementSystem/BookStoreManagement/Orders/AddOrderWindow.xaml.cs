@@ -1,4 +1,5 @@
 ﻿using BookStoreManagement.Entities;
+using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace BookStoreManagement.Orders
             //Truyền dữ liệu vào ComboBox Sản phẩm
             BindingProducts();
 
-            Order newOrder = new Order();
+            Entities.Order newOrder = new Entities.Order();
 
             newOrder.OrderDate = DateTime.Now;
             txtOrderDate.Text = newOrder.OrderDate.ToString(); 
@@ -52,7 +53,7 @@ namespace BookStoreManagement.Orders
         private void BindingCustomers()
         {
             string sql = @"SELECT * FROM Customers";
-            DataTable dt = DBConnect.DB.LoadCSDL(sql);
+            System.Data.DataTable dt = DBConnect.DB.LoadCSDL(sql);
 
             ObservableCollection<Customers> _lib = new ObservableCollection<Customers>();
 
@@ -80,7 +81,7 @@ namespace BookStoreManagement.Orders
                            FROM Products P, ProductCategories C
                            WHERE P.CategoryId = C.CategoryId";
 
-            DataTable dt = DBConnect.DB.LoadCSDL(sql);
+            System.Data.DataTable dt = DBConnect.DB.LoadCSDL(sql);
 
             //BindingList<Product> _lib = new BindingList<Product>();
 
@@ -125,13 +126,65 @@ namespace BookStoreManagement.Orders
         }
 
         private BindingList<OrderDetail> _lib = new BindingList<OrderDetail>();
-
+        private int orderID;
         private int TotalAmount = 0;
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
+            //Kiểm tra ô combobox khách hàng đã điền hay chưa
+            if (txtCustomer.Text.Length == 0)
+            {
+                txtErrorCustomer.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                txtErrorCustomer.Visibility = Visibility.Hidden;
+            }
+
+            //Kiểm tra ô combobox sản phẩm đã điền hay chưa
+            if (txtProduct.Text.Length == 0)
+            {
+                txtErrorProduct.Visibility = Visibility.Visible;
+                return;
+            }
+            else
+            {
+                txtErrorProduct.Visibility = Visibility.Hidden;
+            }
+
             var Result = MessageBox.Show("Bạn có chắc chắn muốn lưu đơn hàng này ?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Information);
             if (Result == MessageBoxResult.Yes)
             {
+                // Lấy dữ liệu từ combobox Customer
+                ComboBox customerComboBox = txtCustomer as ComboBox;
+                if (customerComboBox == null)
+                {
+                    return;
+                }
+
+                var selectedCustomer = customerComboBox.SelectedItem as Customers;
+                if (selectedCustomer == null)
+                {
+                    return;
+                }
+
+                int customerID = selectedCustomer.CustomerID;
+
+                //Tạo 1 đơn hàng mới
+                             
+                if (txtCustomer.IsEnabled == true)
+                {
+                    string sqlCreateOrder;
+                    sqlCreateOrder = @"INSERT INTO Orders (CustomerID, OrderDate, Status) VALUES (" + customerID + ", '" + txtOrderDate.Text + "', N'Đang xử lí')";
+                    DBConnect.DB.Query(sqlCreateOrder);
+                }
+               
+                //Lấy OrderID vừa được tạo 
+                string sqlReadOrder = @"SELECT * FROM Orders WHERE OrderDate = '" + txtOrderDate.Text + "' ";
+                System.Data.DataTable dtOrder = DBConnect.DB.LoadCSDL(sqlReadOrder);
+                orderID = (int)dtOrder.Rows[0]["OrderId"];
+
+                //--------------------------------------------------------------------------------------------------------------
                 //Xử lí không cho thay đổi dữ liệu khách hàng
                 txtCustomer.IsEnabled = false;
                 AddCustomer.IsEnabled = false;
@@ -144,10 +197,11 @@ namespace BookStoreManagement.Orders
                 {
                     var orderdetail = new OrderDetail
                     {
+                        OrderId = orderID,
+                        ProductId = selectedProduct.BookId,
                         ProductName = selectedProduct.BookName,
                         UnitPrice = toINT(txtUnitPrice.Text),
                         Quantity = toINT(txtQuantity.Text),
-
                     };
                     orderdetail.Price = orderdetail.UnitPrice * orderdetail.Quantity;
                     _lib.Add(orderdetail);
@@ -207,6 +261,53 @@ namespace BookStoreManagement.Orders
             }
                 
 
+        }
+
+        private void deleteOrderDetail_Click(object sender, RoutedEventArgs e)
+        {
+            var reusult = MessageBox.Show("Bạn có chắc chắn muốn xóa mặt hàng này", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            if (reusult == MessageBoxResult.Yes)
+            {
+                var button = sender as Button;
+                if (button != null)
+                {
+                    var itemToDelete = button.DataContext as OrderDetail;
+                    if (itemToDelete != null)
+                        _lib.Remove(itemToDelete);
+                    else
+                        return;
+                }
+                else
+                    return;               
+              
+            }
+            else
+                return;
+            
+        }
+
+        private void SaveOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (_lib == null)
+            {
+                return;
+            }
+            else
+            {              
+                //Tạo 1 chi tiết đơn hàng
+                string sqlCreateOrderDetail;
+                for (int i = 0; i < _lib.Count; i++)
+                {
+                    sqlCreateOrderDetail = @"INSERT INTO OrderDetails (OrderID, ProductID, Quantity) VALUES (" + _lib[i].OrderId + ", " + _lib[i].ProductId + ", " + _lib[i].Quantity + ")";
+                    DBConnect.DB.Query(sqlCreateOrderDetail);
+                }
+
+                var ResultOK = MessageBox.Show("Đã lưu đơn hàng thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (ResultOK == MessageBoxResult.OK) 
+                {
+                    NavigateBackToOrdersWindow?.Invoke(this, EventArgs.Empty); //Gọi sự kiện nút BackButton để quay lại màn hình Order
+                }
+            }
         }
     }
 }

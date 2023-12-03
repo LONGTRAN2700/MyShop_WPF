@@ -86,7 +86,7 @@ namespace BookStoreManagement.Orders {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/BookStoreManagement;component/orders/orderswindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/BookStoreManagement;V1.0.0.0;component/orders/orderswindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Orders\OrdersWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

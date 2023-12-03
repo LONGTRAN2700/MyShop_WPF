@@ -81,12 +81,12 @@ namespace BookStoreManagement.Orders
                 string? selectedValue = ((ComboBoxItem)OrderDateCombobox.SelectedItem).Content.ToString();
                 switch (selectedValue)
                 {
-                    case "⏫ Mới nhất":
+                    case "⏬ Cũ nhất":
                         SortName = "OrderDate";
                         OrderDateSort(SortName);
                         break;
 
-                    case "⏬ Cũ nhất":
+                    case "⏫ Mới nhất":
                         SortName = "OrderDate DESC";
                         OrderDateSort(SortName);
                         break;
@@ -192,13 +192,13 @@ namespace BookStoreManagement.Orders
 
             if (OrderDateCombobox.SelectedValue != null && OrderDateCombobox.Text != "⚙ Mặc định")
             {
-                if (OrderDateCombobox.Text == "⏫ Mới nhất")
+                if (OrderDateCombobox.Text == "⏬ Cũ nhất")
                 {
                     sql = $@"SELECT * FROM Orders O, Customers C
                       Where O.CustomerID = C.CustomerID AND O.Status = N'{SortName}' 
                       ORDER BY OrderDate";
                 }
-                else //if (OrderDateCombobox.Text == "⏬ Cũ nhất")
+                else //if (OrderDateCombobox.Text == "⏫ Mới nhất")
                 {
                     sql = $@"SELECT * FROM Orders O, Customers C
                       Where O.CustomerID = C.CustomerID AND O.Status = N'{SortName}' 
@@ -225,13 +225,13 @@ namespace BookStoreManagement.Orders
             }
             else
             {
-                if (OrderDateCombobox.Text == "⏫ Mới nhất")
+                if (OrderDateCombobox.Text == "⏬ Cũ nhất")
                 {
                     sql = $@"SELECT * FROM Orders O, Customers C
                     Where O.CustomerID = C.CustomerID
                     ORDER BY OrderDate";
                 }
-                else //if (OrderDateCombobox.Text == "⏬ Cũ nhất")
+                else //if (OrderDateCombobox.Text == "⏫ Mới nhất")
                 {
                     sql = $@"SELECT * FROM Orders O, Customers C
                     Where O.CustomerID = C.CustomerID

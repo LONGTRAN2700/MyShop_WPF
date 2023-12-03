@@ -17,7 +17,7 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="450"></ColumnDefinition>
+            <ColumnDefinition Width="480"></ColumnDefinition>
             <ColumnDefinition ></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Button x:Name="BackButton"
@@ -52,7 +52,7 @@
                  Background="Transparent"
                 BorderThickness="2"
                 VerticalAlignment="Top"
-                Margin="0, 10, 30, 0"
+                Margin="0, 10, 20, 0"
                 HorizontalAlignment="Right" 
                 Width="280" Height="180"
                  Grid.Column="1">
@@ -89,7 +89,7 @@
                                     Foreground="Brown"
                                     HorizontalAlignment="Left"/>
                             <TextBlock Name="txtErrorCustomer"
-                                   Text="*Giá cả không hợp lệ"
+                                   Text="*Chưa điền thông tin KH"
                                    FontSize="9"
                                    Width="107"
                                    Visibility="Hidden"
@@ -174,7 +174,7 @@
                 BorderBrush="Brown"
                 BorderThickness="2"
                 VerticalAlignment="Bottom"
-                Margin="0, 0, 30, 120"
+                Margin="0, 0, 20, 120"
                 HorizontalAlignment="Right" 
                 Width="280" Height="210" 
                 Grid.Column="1">
@@ -215,7 +215,7 @@
                                     Foreground="Brown"
                                     HorizontalAlignment="Left"/>
                             <TextBlock Name="txtErrorProduct"
-                                   Text="*Giá cả không hợp lệ"
+                                   Text="*Bạn chưa chọn SP"
                                    FontSize="9"
                                    Width="107"
                                    Visibility="Hidden"
@@ -333,13 +333,16 @@
                 Height="35"
                 Grid.Column="1"
                 VerticalAlignment="Bottom"
-                Margin="0,0,0,65"
+                Margin="0,0,15,65"
                 Foreground="White"
                 Style="{StaticResource FlatButton}" Click="ConfirmButton_Click"/>
         
+        <!--Tổng tiền-->
         <StackPanel Grid.Row="0" Grid.Column="0"
-                            Margin="20, 0, 0, 60"
-                     VerticalAlignment="Bottom">
+                    Margin="20,0,0,120"
+                    Width="250"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom">
             <StackPanel Orientation="Horizontal">
                 <Label  Content="Tổng tiền" 
                             FontSize="10"
@@ -365,12 +368,27 @@
                      IsEnabled="False"
                      Foreground="Red"
                      HorizontalAlignment="Left"
+                     
                      Style="{StaticResource FlatTextBox}"
                      Background="Transparent"/>
         </StackPanel>
 
+        <!--Nút lưu đơn hàng-->
+        <Button Content="Lưu đơn hàng"
+                Name="SaveOrder"
+                Click="SaveOrder_Click"
+                FontWeight="Medium"
+                Width="160"
+                Height="40"
+                Grid.Column="0"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Margin="10, 120"
+                Foreground="White"
+                Background="Brown"
+                Style="{ StaticResource FlatButton}"/>
 
-
+        <!--Header của từng thuộc tính-->
         <StackPanel Grid.Column="0"
                     VerticalAlignment="Top"
                     Height="50"
@@ -385,7 +403,7 @@
                        Height="30"
                        Width="80"
                        Padding="0,10,0,0"
-                       Margin="70,0,5,0"
+                       Margin="50,0,5,0"
                        Background="Transparent"/>
 
             <!--Cột đơn giá-->
@@ -419,12 +437,12 @@
                            Padding="0,10,0,0"
                            Height="30"
                            Width="60"
-                           Margin="30,0,0,0"
+                           Margin="18,0,0,0"
                            Background="Transparent"/>
         </StackPanel>
 
         <ListView Name="DetailOrderList" 
-                  Margin="20,100,10,120"
+                  Margin="10,100,10,180"
                   Grid.Column="0"
                   Background="Transparent"
                   BorderBrush="Brown"
@@ -442,6 +460,10 @@
                                     <ContentPresenter />
                                 </Border>
                                 <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="BorderBrush" Value="Red" />
+                                        <Setter Property="BorderThickness" Value="2, 1, 2, 1"/>
+                                    </Trigger>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="BorderBrush" Value="Red" />
                                         <Setter Property="BorderThickness" Value="3, 1, 3, 1"/>
@@ -454,55 +476,62 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Button Name="detailOrderButton"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Margin="0, 7, 0, 7"
-                            Height ="25"
-                            Width="400"
-                            Background="LightGreen"
-                            BorderBrush="Transparent"                           
-                          
-                            Style="{StaticResource RoundedButtonStyle}">
-                        <StackPanel Margin="0, 0, 0, 0"
-                                    Orientation="Horizontal"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Center"
-                                    Width="400">
-                            <!--Tên sản phẩm-->
-                            <TextBlock Text="{Binding ProductName}"
+                    <StackPanel  Margin="0, 7, 0, 7"
+                                 Orientation="Horizontal"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Height ="25"
+                                 Width="430"
+                                 Background="LightGreen">
+                        <!--Tên sản phẩm-->
+                        <TextBlock Text="{Binding ProductName}"
                                        FontSize="9"
                                        Width="150"
                                        Margin="5, 0, 0, 0"
                                        TextAlignment="Center"
+                                    VerticalAlignment="Center"
                                        FontWeight="Medium"/>
 
-                            <!--Đơn giá-->
-                            <TextBlock Text="{Binding UnitPrice}"
+                        <!--Đơn giá-->
+                        <TextBlock Text="{Binding UnitPrice}"
                                        FontSize="9"
                                        Width="70"
+                                   VerticalAlignment="Center"
                                        TextAlignment="Center"
                                        Margin="10, 0, 0, 0"
                                        FontWeight="Medium"/>
 
-                            <!--Số lượng-->
-                            <TextBlock Text="{Binding Quantity}"
+                        <!--Số lượng-->
+                        <TextBlock Text="{Binding Quantity}"
                                        FontSize="11"
                                        Width="40"
+                                   VerticalAlignment="Center"
                                        TextAlignment="Center"
-                                       Margin="20, 0, 0, 0"
+                                       Margin="15, 0, 0, 0"
                                        FontWeight="Medium"/>
 
-                            <!--Thành tiền-->
-                            <TextBlock Text="{Binding Price, Converter={StaticResource MoneyConverter}}"
+                        <!--Thành tiền-->
+                        <TextBlock Text="{Binding Price, Converter={StaticResource MoneyConverter}}"
                                        FontSize="9"
                                        Width="110"
+                                       VerticalAlignment="Center"
                                        TextAlignment="Center"
-                                       Margin="10, 0, 10, 0"
-                                       FontWeight="Medium"
-                                       />
-                        </StackPanel>
-                    </Button>
+                                       Margin="0, 0, 0, 0"
+                                       FontWeight="Medium"/>
+                        
+                        <!--Nút xóa chi tiết đơn hàng-->
+                        <Button x:Name="deleteOrderDetail"
+                                Width="25"
+                                Height="25"
+                                VerticalAlignment="Center"
+                                Background="Transparent"
+                                BorderBrush="Transparent"
+                                Style="{StaticResource CustomButtonTemplate}"
+                                Click="deleteOrderDetail_Click">
+                            <Image Source="../Images/Orders/deleteButton.png"
+                                   RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Button>
+                    </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
