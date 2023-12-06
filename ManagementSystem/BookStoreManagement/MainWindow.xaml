@@ -7,7 +7,8 @@
         Title="Dream Book Store" 
         Height="600" 
         Width="950" 
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize"
+        Loaded="MainWindow_Loaded">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -130,7 +131,7 @@
                     Height="50"
                     Margin="0, 0, 0, 10"
                     Style="{StaticResource RoundedButton}"
-                    Click="Button_Click"/>
+                    Click="StatisticButton_Click"/>
         </StackPanel>
 
         

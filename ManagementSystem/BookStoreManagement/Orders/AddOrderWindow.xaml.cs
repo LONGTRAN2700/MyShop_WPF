@@ -1,4 +1,5 @@
 ﻿using BookStoreManagement.Entities;
+using ClosedXML;
 using DocumentFormat.OpenXml.Drawing.Charts;
 using DocumentFormat.OpenXml.Spreadsheet;
 using System;
@@ -55,11 +56,11 @@ namespace BookStoreManagement.Orders
             string sql = @"SELECT * FROM Customers";
             System.Data.DataTable dt = DBConnect.DB.LoadCSDL(sql);
 
-            ObservableCollection<Customers> _lib = new ObservableCollection<Customers>();
+            ObservableCollection<Entities.Customers> _lib = new ObservableCollection<Entities.Customers>();
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                var customer = new Customers()
+                var customer = new Entities.Customers()
                 {
                     CustomerID = (int)dt.Rows[i]["CustomerID"],
                     Name = (string)dt.Rows[i]["Name"],
@@ -111,7 +112,34 @@ namespace BookStoreManagement.Orders
         public event EventHandler? NavigateBackToOrdersWindow;
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigateBackToOrdersWindow?.Invoke(this, EventArgs.Empty);
+            try
+            {
+                //Lấy OrderID vừa được tạo 
+                string sqlReadOrder = @"SELECT * FROM Orders WHERE OrderDate = '" + txtOrderDate.Text + "' ";
+                System.Data.DataTable dtOrder = DBConnect.DB.LoadCSDL(sqlReadOrder);
+                orderID = (int)dtOrder.Rows[0]["OrderId"];
+
+                if ((int)dtOrder.Rows[0]["TotalAmount"] == 0)
+                {
+                    var result = MessageBox.Show("Đơn hàng của bạn chưa được lưu, bạn có thật sự muốn thoát", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (result == MessageBoxResult.Yes) //Bấm thoát sẽ không khởi tạo hóa đơn
+                    {
+                        //Xóa đi đơn hàng rỗng vừa tạo trong database
+                        string sql_deleteOrder = @"DELETE FROM Orders WHERE OrderID = " + orderID;
+                        DBConnect.DB.Query(sql_deleteOrder);
+                        NavigateBackToOrdersWindow?.Invoke(this, EventArgs.Empty); //Quay về màn hình trước đó
+                    }
+                    else
+                        return;
+                }
+                else
+                    NavigateBackToOrdersWindow?.Invoke(this, EventArgs.Empty); //Quay về màn hình trước đó
+            }
+            catch 
+            {
+                NavigateBackToOrdersWindow?.Invoke(this, EventArgs.Empty); //Quay về màn hình trước đó
+            }
+          
         }
 
         private void AddCustomer_Click(object sender, RoutedEventArgs e)
@@ -128,6 +156,7 @@ namespace BookStoreManagement.Orders
         private BindingList<OrderDetail> _lib = new BindingList<OrderDetail>();
         private int orderID;
         private int TotalAmount = 0;
+        
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             //Kiểm tra ô combobox khách hàng đã điền hay chưa
@@ -152,6 +181,23 @@ namespace BookStoreManagement.Orders
                 txtErrorProduct.Visibility = Visibility.Hidden;
             }
 
+            //Kiểm tra số lượng mặt hàng có đáp ứng đủ hay không
+            //Lấy số lượng sách hiện tại
+            Product? selectedProduct = txtProduct.SelectedItem as Product;
+            if (selectedProduct != null)
+            {
+                string sql_GetQuantityProduct = @"SELECT * FROM Products WHERE ProductId = " + selectedProduct.BookId;
+                System.Data.DataTable dtProduct = DBConnect.DB.LoadCSDL(sql_GetQuantityProduct);
+                int totalQuantity = (int)dtProduct.Rows[0]["Quantity"];
+                if (toINT(txtQuantity.Text) > totalQuantity)
+                {
+                    var notify = MessageBox.Show($"Số lượng sách hiện tại còn {totalQuantity}. Không đủ để thêm vào", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+            }
+            else
+                return;
+
             var Result = MessageBox.Show("Bạn có chắc chắn muốn lưu đơn hàng này ?", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Information);
             if (Result == MessageBoxResult.Yes)
             {
@@ -162,7 +208,7 @@ namespace BookStoreManagement.Orders
                     return;
                 }
 
-                var selectedCustomer = customerComboBox.SelectedItem as Customers;
+                var selectedCustomer = customerComboBox.SelectedItem as Entities.Customers;
                 if (selectedCustomer == null)
                 {
                     return;
@@ -175,7 +221,7 @@ namespace BookStoreManagement.Orders
                 if (txtCustomer.IsEnabled == true)
                 {
                     string sqlCreateOrder;
-                    sqlCreateOrder = @"INSERT INTO Orders (CustomerID, OrderDate, Status) VALUES (" + customerID + ", '" + txtOrderDate.Text + "', N'Đang xử lí')";
+                    sqlCreateOrder = @"INSERT INTO Orders (CustomerID, OrderDate, Status, TotalAmount) VALUES (" + customerID + ", '" + txtOrderDate.Text + "', N'Đang xử lí', " + 0 + ")";
                     DBConnect.DB.Query(sqlCreateOrder);
                 }
                
@@ -191,7 +237,7 @@ namespace BookStoreManagement.Orders
                 AddCustomer.Visibility = Visibility.Hidden;
 
                 //Tạo 1 chi tiết đơn hàng
-                Product? selectedProduct = txtProduct.SelectedItem as Product;
+                //Product? selectedProduct = txtProduct.SelectedItem as Product;
 
                 if (selectedProduct != null)
                 {
@@ -212,9 +258,11 @@ namespace BookStoreManagement.Orders
                 }
                 else
                     return;
-              
 
                 DetailOrderList.ItemsSource = _lib;
+                txtQuantity.Text = "1";
+
+
 
             }              
             else
@@ -288,26 +336,46 @@ namespace BookStoreManagement.Orders
 
         private void SaveOrder_Click(object sender, RoutedEventArgs e)
         {
-            if (_lib == null)
+            if (_lib.Count == 0)
             {
+                MessageBox.Show("Đơn hàng rỗng. Khởi tạo không thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            else
-            {              
-                //Tạo 1 chi tiết đơn hàng
-                string sqlCreateOrderDetail;
-                for (int i = 0; i < _lib.Count; i++)
-                {
-                    sqlCreateOrderDetail = @"INSERT INTO OrderDetails (OrderID, ProductID, Quantity) VALUES (" + _lib[i].OrderId + ", " + _lib[i].ProductId + ", " + _lib[i].Quantity + ")";
-                    DBConnect.DB.Query(sqlCreateOrderDetail);
-                }
 
-                var ResultOK = MessageBox.Show("Đã lưu đơn hàng thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                if (ResultOK == MessageBoxResult.OK) 
-                {
-                    NavigateBackToOrdersWindow?.Invoke(this, EventArgs.Empty); //Gọi sự kiện nút BackButton để quay lại màn hình Order
-                }
+            var Result = MessageBox.Show("Bạn có chắc chắn muốn lưu đơn hàng này", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            if (Result == MessageBoxResult.Yes)
+            {                
+                    //Tạo 1 chi tiết đơn hàng
+                    string sqlCreateOrderDetail;
+                    for (int i = 0; i < _lib.Count; i++)
+                    {
+                        //Thêm chi tiết đơn hàng vào CSDL
+                        sqlCreateOrderDetail = @"INSERT INTO OrderDetails (OrderID, ProductID, Quantity) VALUES (" + _lib[i].OrderId + ", " + _lib[i].ProductId + ", " + _lib[i].Quantity + ")";
+                        DBConnect.DB.Query(sqlCreateOrderDetail);
+
+
+                        //Lấy số lượng sách hiện tại
+                        string sql_GetQuantityProduct = @"SELECT * FROM Products WHERE ProductId = " + _lib[i].ProductId;
+                        System.Data.DataTable dtProduct = DBConnect.DB.LoadCSDL(sql_GetQuantityProduct);
+                        int totalQuantity = (int)dtProduct.Rows[0]["Quantity"];
+
+                        //Cập nhật lại số lượng sách có trong kho
+                        int finalQuantity = totalQuantity - _lib[i].Quantity;
+                        string sql_UpdateQuantityProduct = @"UPDATE Products
+                                                             SET Quantity = " + finalQuantity +
+                                                             " WHERE ProductID = " + _lib[i].ProductId;
+                        DBConnect.DB.Query(sql_UpdateQuantityProduct);
+                    }
+
+                    var ResultOK = MessageBox.Show("Đã lưu đơn hàng thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    if (ResultOK == MessageBoxResult.OK)
+                    {
+                        NavigateBackToOrdersWindow?.Invoke(this, EventArgs.Empty); //Gọi sự kiện nút BackButton để quay lại màn hình Order
+                    }
             }
+            else
+                return;
+           
         }
     }
 }

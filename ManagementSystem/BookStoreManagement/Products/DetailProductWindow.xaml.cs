@@ -41,6 +41,7 @@ namespace BookStoreManagement.Products
 
         }
 
+        //Sự kiện cho nút backButton quay về màn hình trước đó
         public event EventHandler? NavigateBackToProductsWindow;
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

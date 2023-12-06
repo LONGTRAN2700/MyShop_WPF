@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <None Remove="Images\Login\logo.png" />
+    <None Remove="Images\Login\logoMyShop01.png" />
+    <None Remove="Images\Login\logoMyshop02.png" />
     <None Remove="Images\Logo.png" />
     <None Remove="Images\Main\Female.png" />
     <None Remove="Images\Main\Male.png" />
@@ -35,6 +37,12 @@
 
   <ItemGroup>
     <Resource Include="Images\Login\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Login\logoMyShop01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Login\logoMyshop02.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Main\Female.png">

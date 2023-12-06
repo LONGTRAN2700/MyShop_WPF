@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Users\dell\Documents\A_Năm_4\HK1\Lập trình Window\Đồ án\Đồ án 1 - Myshop\MyShop_WPF\ManagementSystem\BookStoreManagement\App.xaml
-11-1823042264
+141528178790
 
-27-1936486960
+311357244582
 2182138213378
-DashboardWindow.xaml;LoginWindow.xaml;MainWindow.xaml;Orders\AddOrderWindow.xaml;Orders\NewCustomerWindow.xaml;Orders\OrdersWindow.xaml;Products\AddProductWindow.xaml;Products\DetailProductWindow.xaml;Products\ProductsWindow.xaml;Products\UpdateProductWindow.xaml;registerWindow.xaml;
+Customers\CustomersWindow.xaml;DashboardWindow.xaml;LoginWindow.xaml;MainWindow.xaml;Orders\AddOrderWindow.xaml;Orders\DetailOrderWindow.xaml;Orders\NewCustomerWindow.xaml;Orders\OrdersWindow.xaml;Products\AddProductWindow.xaml;Products\DetailProductWindow.xaml;Products\ProductsWindow.xaml;Products\UpdateProductWindow.xaml;registerWindow.xaml;Statistic\StatisticWindow.xaml;
 
 True
 

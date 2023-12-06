@@ -12,9 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BookStoreManagement.Customers;
 using BookStoreManagement.Entities;
 using BookStoreManagement.Orders;
 using BookStoreManagement.Products;
+using BookStoreManagement.Statistic;
 
 namespace BookStoreManagement
 {
@@ -29,7 +31,13 @@ namespace BookStoreManagement
             
         }
 
-        
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            MainContent.Content = new DashboardWindow();
+
+            DashboardButton.Background = new SolidColorBrush(Colors.AliceBlue);
+        }
+
         //------------------------------XỬ LÍ TÍNH NĂNG TRANG CHỦ--------------------------------//
         private void DashboardButton_Click(object sender, RoutedEventArgs e)
         {
@@ -46,6 +54,21 @@ namespace BookStoreManagement
 
 
         //------------------------XỬ LÍ TÍNH NĂNG ORDER------------------------------------------//
+        //Xử lí bắt sự kiện cho màn hình Chi tiết ĐƠN HÀNG
+        private void OrdersWindow_NavigateToDetailOrder(object sender, OrderEventArgs e)
+        {
+
+            var order = e.Order;
+
+            var detailOrder = new DetailOrderWindow();
+            detailOrder.SetOrder(order);
+
+            // Tạo instance của DetailProduct và đăng ký sự kiện
+            detailOrder.NavigateBackToOrdersWindow += Order_NavigateBackToOrdersWindow;
+
+            MainContent.NavigationService.Navigate(detailOrder);
+        }
+
 
         //Xử lí bắt sự kiện cho màn hình AddOrderWindow (Tạo đơn hàng)
         private void OrdersWindow_NavigateToAddOrder(object sender, EventArgs e)
@@ -53,13 +76,13 @@ namespace BookStoreManagement
             var addOrder = new AddOrderWindow();
 
             // Tạo instance của DetailProduct và đăng ký sự kiện
-            addOrder.NavigateBackToOrdersWindow += AddOrder_NavigateBackToOrdersWindow;
+            addOrder.NavigateBackToOrdersWindow += Order_NavigateBackToOrdersWindow;
 
             MainContent.NavigationService.Navigate(addOrder);
         }
 
-        //Xử lí bắt sự kiện cho nút Back_Button
-        private void AddOrder_NavigateBackToOrdersWindow(object sender, EventArgs e)
+        //Xử lí bắt sự kiện cho nút Back_Button của AddOrderWindow và DetailOrderWindow
+        private void Order_NavigateBackToOrdersWindow(object sender, EventArgs e)
         {
             MainContent.NavigationService.GoBack();
         }
@@ -74,9 +97,10 @@ namespace BookStoreManagement
             CustomerButton.Background = new SolidColorBrush(Colors.Transparent);
             Button.Background = new SolidColorBrush(Colors.Transparent);
             //--------------------------------------------------
-            // Tạo instance của ProductsWindow và đăng ký sự kiện
+            // Tạo instance của OrdersWindow và đăng ký sự kiện
             var ordersWindow = new OrdersWindow();
-            //ordersWindow.NavigateToDetailProduct += ProductsWindow_NavigateToDetailProduct;
+
+            ordersWindow.NavigateToDetailOrder += OrdersWindow_NavigateToDetailOrder;
             ordersWindow.NavigateToAddOrder += OrdersWindow_NavigateToAddOrder;
 
 
@@ -135,9 +159,11 @@ namespace BookStoreManagement
 
             MainContent.Content = productsWindow;
         }
-        //----------------------------------------------------------------------------------------//
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        //----------------------------------XỬ LÍ TÍNH NĂNG THỐNG KÊ---------------------------------------//
+
+
+        private void StatisticButton_Click(object sender, RoutedEventArgs e)
         {
             Button.Background = new SolidColorBrush(Colors.AliceBlue);
 
@@ -147,8 +173,12 @@ namespace BookStoreManagement
             CustomerButton.Background = new SolidColorBrush(Colors.Transparent);
             //-----------------------------------------------------------------
 
+            var statisticWindow = new StatisticWindow();
+
+            MainContent.Content = statisticWindow;
         }
 
+        //----------------------------XỬ LÍ TÍNH NĂNG KHÁCH HÀNG--------------------------------------------
         private void CustomerButton_Click(object sender, RoutedEventArgs e)
         {
             CustomerButton.Background = new SolidColorBrush(Colors.AliceBlue);
@@ -158,6 +188,9 @@ namespace BookStoreManagement
             ProductButton.Background = new SolidColorBrush(Colors.Transparent);
             Button.Background = new SolidColorBrush(Colors.Transparent);
             //-------------------------------------------------------------------
+
+            var customerWindow = new CustomersWindow();
+            MainContent.Content = customerWindow;
         }
 
         private void MenuButton_Click(object sender, RoutedEventArgs e)
@@ -194,6 +227,7 @@ namespace BookStoreManagement
             screen.Show();
             this.Close();
         }
+
 
     }
 }

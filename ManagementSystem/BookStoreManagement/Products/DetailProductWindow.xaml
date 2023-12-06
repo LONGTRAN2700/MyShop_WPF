@@ -83,8 +83,6 @@
                            TextDecorations="Underline"
                            FontFamily="Arial"/>
                 </StackPanel>
-                
-
             </StackPanel>
             <!--Chứa các thuộc tính còn lại của sách-->
             <StackPanel Margin="0, 30, 0, 0">

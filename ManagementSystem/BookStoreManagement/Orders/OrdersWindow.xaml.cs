@@ -66,9 +66,19 @@ namespace BookStoreManagement.Orders
             OrderList.ItemsSource = _lib;
         }
 
+
+        public event EventHandler<OrderEventArgs>? NavigateToDetailOrder;
         private void detailOrderButton_Click(object sender, RoutedEventArgs e)
         {
+            //Lấy đối tượng Order từ DataContext của Button
+            var order = ((FrameworkElement)sender).DataContext as Order;
 
+            if (order != null)
+            {
+                NavigateToDetailOrder?.Invoke(this, new OrderEventArgs(order));
+            }
+            else
+                return;
         }
 
 

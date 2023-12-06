@@ -139,7 +139,7 @@
                   Margin="10,50,10,40"
                   Grid.Row="1"
                   Background="Transparent"
-                  BorderBrush="Brown"
+                  BorderBrush="Transparent"
                   BorderThickness="1,2,1,2"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.VerticalScrollBarVisibility="Hidden">

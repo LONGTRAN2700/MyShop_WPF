@@ -194,9 +194,9 @@
                        HorizontalAlignment="Center" 
                        />
             <Image Name="logoLogin"
-                   Source="Images/Login/logo.png"
-                   Width="200" 
-                   Height="200" 
+                   Source="Images/Login/logoMyshop02.png"
+                   Width="250" 
+                   Height="250" 
                    Margin="0, 50, 0, 0"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
 
