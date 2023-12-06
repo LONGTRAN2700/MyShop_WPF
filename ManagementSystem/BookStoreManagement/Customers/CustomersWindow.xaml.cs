@@ -64,5 +64,23 @@ namespace BookStoreManagement.Customers
             LoadDataBase(_lib, sql);
             CustomerList.ItemsSource = _lib;
         }
+
+        //Xử lí sự kiện khi click vào 1 khách hàng
+
+        public event EventHandler<CustomerEventArgs>? NavigateToDetailCustomer;
+        private void detailCustomerButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Lấy đối tượng Order từ DataContext của Button
+            var customer = ((FrameworkElement)sender).DataContext as Entities.Customers;
+
+            if (customer != null)
+            {
+                NavigateToDetailCustomer?.Invoke(this, new CustomerEventArgs(customer));
+            }
+            else
+                return;
+        }
+
+
     }
 }

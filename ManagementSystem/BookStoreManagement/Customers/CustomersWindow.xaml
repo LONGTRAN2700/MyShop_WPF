@@ -21,39 +21,53 @@
             <RowDefinition Height="450"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="1"
-                    VerticalAlignment="Top"
-                    Height="50"
+        <Border Name="Border"
+                Background="White"
+                CornerRadius="5"
+                BorderThickness="2"
+                VerticalAlignment="Top"
+                Grid.Row="1"
+                Width="660"
+                Height="50">
+            <Border.Effect>
+                <DropShadowEffect
+                    Color="Black"
+                    Direction="320"
+                    ShadowDepth="0"
+                    BlurRadius="5"
+                    Opacity="0.5" />
+            </Border.Effect>
+            <StackPanel 
                     Orientation="Horizontal">
-            <!--Cột Mã khách hàng-->
-            <TextBlock Text="Mã khách hàng"
+                <!--Cột Mã khách hàng-->
+                <TextBlock Text="Mã KH"
                    Height="30"
                    FontSize="11"
                    TextAlignment="Center"
                    FontWeight="Medium"
                    Padding="0,10,0,0"
                    Width="75"
-                   Margin="65,0,0,0"
+                   Margin="0,0,0,0"
                    Background="Transparent"/>
 
-            <!--Cột tên khách hàng-->
-            <TextBlock Text="Tên khách hàng"
+                <!--Cột tên khách hàng-->
+                <TextBlock Text="Tên KH"
                        TextAlignment="Center"
                        FontSize="11"
                        FontWeight="Medium"
                        Height="30"
                        Width="80"
                        Padding="0,10,0,0"
-                       Margin="40,0,5,0"
+                       Margin="10,0,5,0"
                        Background="Transparent"/>
 
-            <!--Cột giới tính-->
-            <StackPanel Orientation="Horizontal"
+                <!--Cột giới tính-->
+                <StackPanel Orientation="Horizontal"
                         Width="60"
                         Height="30"
-                        Margin="60,0,5,0"
+                        Margin="20,0,5,0"
                         >
-                <TextBlock Text="Giới tính"
+                    <TextBlock Text="Giới tính"
                            TextAlignment="Center"
                            HorizontalAlignment="Center"
                            FontSize="11"
@@ -62,16 +76,16 @@
                            Height="30"
                            Width="60"
                            Background="Transparent"/>
-                
-            </StackPanel>
 
-            <!--Cột địa chỉ-->
-            <StackPanel Orientation="Horizontal"
+                </StackPanel>
+
+                <!--Cột địa chỉ-->
+                <StackPanel Orientation="Horizontal"
                         Width="120"
                         Height="30"
                         Margin="25,0,5,0"
                         >
-                <TextBlock Text="Địa chỉ"
+                    <TextBlock Text="Địa chỉ"
                            TextAlignment="Center"
                            FontSize="11"
                            FontWeight="Medium"
@@ -79,16 +93,16 @@
                            Height="30"
                            Width="70"
                            Background="Transparent"/>
-               
-            </StackPanel>
 
-            <!--Cột Email-->
-            <StackPanel Orientation="Horizontal"
+                </StackPanel>
+
+                <!--Cột Email-->
+                <StackPanel Orientation="Horizontal"
                         Width="90"
                         Height="30"
                         Margin="10,0,5,0"
                         >
-                <TextBlock Text="Email"
+                    <TextBlock Text="Email"
                            TextAlignment="Center"
                            FontSize="11"
                            FontWeight="Medium"
@@ -97,15 +111,15 @@
                            Width="90"
                            Background="Transparent"/>
 
-            </StackPanel>
+                </StackPanel>
 
-            <!--Cột SDT-->
-            <StackPanel Orientation="Horizontal"
+                <!--Cột SDT-->
+                <StackPanel Orientation="Horizontal"
                         Width="90"
                         Height="30"
-                        Margin="10,0,5,0"
+                        Margin="40,0,0,0"
                         >
-                <TextBlock Text="SĐT"
+                    <TextBlock Text="SĐT"
                            TextAlignment="Center"
                            FontSize="11"
                            FontWeight="Medium"
@@ -114,11 +128,11 @@
                            Width="90"
                            Background="Transparent"/>
 
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
-
+        </Border>
         <ListView Name="CustomerList" 
-                  Margin="10,50,10,40"
+                  Margin="40,50,40,40"
                   Grid.Row="1"
                   Background="Transparent"
                   BorderBrush="Transparent"
@@ -156,7 +170,7 @@
                             Width="650"
                             Background="LightGreen"
                             BorderBrush="Transparent"                           
-                            
+                            Click="detailCustomerButton_Click"
                             Style="{StaticResource RoundedButtonStyle}">
                         <StackPanel Margin="0, 0, 0, 0"
                                     Orientation="Horizontal"
@@ -165,17 +179,17 @@
                                     Width="650">
                             <!--Mã khách hàng-->
                             <TextBlock x:Name="txtCustomerID" 
-                                       Width="65"
+                                       Width="40"
                                        TextAlignment="Center"
                                        Text="{Binding CustomerID}" 
                                        FontSize="11"  
-                                       Margin="0, 0, 0, 0"
+                                       Margin="10, 0, 0, 0"
                                        FontWeight="Medium"/>
 
                             <!--Tên khách hàng-->
                             <TextBlock Text="{Binding Name}"
                                        FontSize="11"
-                                       Width="180"
+                                       Width="150"
                                        Margin="0, 0, 0, 0"
                                        TextAlignment="Center"
                                        FontWeight="Medium"/>
@@ -183,7 +197,7 @@
                             <!--Giới tính-->
                             <TextBlock Text="{Binding Sex}"
                                        FontSize="11"
-                                       Width="130"
+                                       Width="30"
                                        TextAlignment="Center"
                                        Margin="0, 0, 0, 0"
                                        FontWeight="Medium"/>
@@ -191,9 +205,9 @@
                             <!--Địa chỉ-->
                             <TextBlock Text="{Binding Address}"
                                        FontSize="11"
-                                       Width="100"
+                                       Width="170"
                                        TextAlignment="Center"
-                                       Margin="35, 0, 10, 0"
+                                       Margin="0, 0, 0, 0"
                                        FontWeight="Medium"/>
 
                             <!--Email-->
@@ -201,14 +215,14 @@
                                        FontSize="11"
                                        Width="140"
                                        TextAlignment="Center"
-                                       Margin="0, 0, 10, 0"
+                                       Margin="0, 0, 0, 0"
                                        FontWeight="Medium"
                                        />
 
                             <!--SDT-->
                             <TextBlock Text="{Binding Phone}"
                                        FontSize="11"
-                                       Width="140"
+                                       Width="120"
                                        TextAlignment="Center"
                                        Margin="0, 0, 10, 0"
                                        FontWeight="Medium"

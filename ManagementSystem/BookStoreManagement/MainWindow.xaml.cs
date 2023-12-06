@@ -179,6 +179,27 @@ namespace BookStoreManagement
         }
 
         //----------------------------XỬ LÍ TÍNH NĂNG KHÁCH HÀNG--------------------------------------------
+
+        //Xử lí bắt sự kiện cho màn hình Chi tiết khách hàng
+        private void CustomersWindow_NavigateToDetailCustomer(object sender, CustomerEventArgs e)
+        {
+
+            var customer = e.Customer;
+
+            var detailCustomer = new DetailCustomer();
+            detailCustomer.SetCustomer(customer);
+
+            // Tạo instance của DetailCustomer
+            detailCustomer.NavigateBackToCustomersWindow += Customer_NavigateBackToCustomersWindow;
+
+            MainContent.NavigationService.Navigate(detailCustomer);
+        }
+
+        //Xử lí bắt sự kiện cho nút Back_Button DetailCustomer
+        private void Customer_NavigateBackToCustomersWindow(object sender, EventArgs e)
+        {
+            MainContent.NavigationService.GoBack();
+        }
         private void CustomerButton_Click(object sender, RoutedEventArgs e)
         {
             CustomerButton.Background = new SolidColorBrush(Colors.AliceBlue);
@@ -190,6 +211,8 @@ namespace BookStoreManagement
             //-------------------------------------------------------------------
 
             var customerWindow = new CustomersWindow();
+            customerWindow.NavigateToDetailCustomer += CustomersWindow_NavigateToDetailCustomer;
+
             MainContent.Content = customerWindow;
         }
 
