@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,17 +26,25 @@ namespace BookStoreManagement
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private string username;
+        public MainWindow(string Username)
         {
             InitializeComponent();
-            
+            username = Username;
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            //Tab hiển thị mặc định là DashBoard
             MainContent.Content = new DashboardWindow();
-
             DashboardButton.Background = new SolidColorBrush(Colors.AliceBlue);
+
+            //Lấy GlobalData.itemsPerPageProducts itemsPerPageOrders đã được lưu của tài khoản đăng nhập
+            string sql = $@"SELECT * FROM USERS WHERE Username = N'{username}'";
+            DataTable dt = DBConnect.DB.LoadCSDL(sql);
+
+            GlobalData.itemsPerPageProducts = (int)dt.Rows[0]["CountProducts"];
+            GlobalData.itemsPerPageOrders = (int)dt.Rows[0]["CountOrders"];
         }
 
         //------------------------------XỬ LÍ TÍNH NĂNG TRANG CHỦ--------------------------------//
@@ -251,6 +260,27 @@ namespace BookStoreManagement
             this.Close();
         }
 
+        //Hàm cập nhật lại số lượng sản phẩm 
+        private void Setting_Click(object sender, RoutedEventArgs e)
+        {
+            var screenSetting = new SettingWindow(username);
 
+            if (screenSetting.ShowDialog() == true)
+            {
+                //
+            }
+            else
+                return;
+        }
+
+        private void InforUserButton_Click(object sender, RoutedEventArgs e)
+        {
+            var screen = new InforUserWindow(username);
+            if (screen.ShowDialog() == true)
+            {
+                //nothing
+            }
+            else return;
+        }
     }
 }

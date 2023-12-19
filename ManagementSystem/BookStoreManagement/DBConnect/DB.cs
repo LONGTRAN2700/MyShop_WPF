@@ -15,6 +15,7 @@ namespace BookStoreManagement.DBConnect
                                         Integrated Security = True";
         static SqlConnection? cn;
 
+        //Dùng để Select...
         static public DataTable LoadCSDL(string sql)
         {
             DataTable dt = new DataTable();
@@ -72,27 +73,7 @@ namespace BookStoreManagement.DBConnect
             return result;
         }
 
-        //Hàm hỗ trợ cho tính năng thống kê 
-        // Load dữ liệu 
-        static public DataTable LoadDB(string sql, Dictionary<string, object>? parameters = null)
-        {
-            DataTable dt = new DataTable();
-            using (cn = new SqlConnection(sConnect))
-            {
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                if (parameters != null)
-                {
-                    foreach (var param in parameters)
-                    {
-                        cmd.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
-                    }
-                }
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(dt);
-            }
-            return dt;
-        }
-
+      
 
     }
 }

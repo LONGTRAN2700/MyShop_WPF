@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "hCyLlhpPiYO92dAeOQisforIVhwXjni3laBFxbLgAf/pmgjyy84Wp8JJUH8dK6u/7IsHd3+ooCkBM8d63Xj7FA==",
+  "dgSpecHash": "97qxuUnTrfRdnxHGydHEj6res1TtBySiiGXG6z6fJ8XT9I+AVmVLskuXZ4ggwJgzlXw8BreRZkObnSKCmQ7Ltw==",
   "success": true,
   "projectFilePath": "C:\\Users\\dell\\Documents\\A_Năm_4\\HK1\\Lập trình Window\\Đồ án\\Đồ án 1 - Myshop\\MyShop_WPF\\ManagementSystem\\BookStoreManagement\\BookStoreManagement.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,7 @@
     "C:\\Users\\dell\\.nuget\\packages\\fluent.ribbon\\10.0.4\\fluent.ribbon.10.0.4.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\fody\\6.6.4\\fody.6.6.4.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\irony.netcore\\1.0.11\\irony.netcore.1.0.11.nupkg.sha512",
+    "C:\\Users\\dell\\.nuget\\packages\\livecharts.wpf.netcore3\\0.9.8\\livecharts.wpf.netcore3.0.9.8.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\microsoft.netcore.targets\\1.1.3\\microsoft.netcore.targets.1.1.3.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
@@ -44,6 +45,7 @@
     "C:\\Users\\dell\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\system.console\\4.3.0\\system.console.4.3.0.nupkg.sha512",
+    "C:\\Users\\dell\\.nuget\\packages\\system.data.datasetextensions\\4.5.0\\system.data.datasetextensions.4.5.0.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\system.data.sqlclient\\4.8.5\\system.data.sqlclient.4.8.5.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",
     "C:\\Users\\dell\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.3.0\\system.diagnostics.diagnosticsource.4.3.0.nupkg.sha512",

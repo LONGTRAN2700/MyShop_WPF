@@ -154,7 +154,7 @@
                 HorizontalAlignment="Right"
                 Width="200"
                 Height ="200"
-                Margin="0,42,20,0" Visibility="Collapsed">
+                Margin="0,42,20,0" Visibility="Visible">
             <Border.Effect>
                 <DropShadowEffect
                     Color="Black"
@@ -165,30 +165,43 @@
             </Border.Effect>
             <StackPanel>
               
-                <Button Content="Xem thông tin"
+                <Button Name="InforUserButton"
+                    Content="Xem thông tin"
                     FontWeight="Medium"
                     Background="Aqua"
                     BorderBrush="Transparent"
-                    Style="{StaticResource RoundedButton}"
+                    Style="{StaticResource RoundedButtonStyle}"
                     Margin="0, 20, 0 ,0"
                     Height="40"
-                    Width ="180">
+                    Width ="170" 
+                    Click="InforUserButton_Click">
+                </Button>
+
+                <Button Content="Cài đặt"
+                    FontWeight="Medium"
+                    Background="Aqua"
+                    BorderBrush="Transparent"
+                    Style="{StaticResource RoundedButtonStyle}"
+                    Margin="0, 10, 0 ,0"
+                    Height="40"
+                    Width ="170"
+                    Click ="Setting_Click">
                 </Button>
                 <Button x:Name="LogoutButton"
                     Content="ĐĂNG XUẤT"
                     FontWeight="Medium"
                     FontSize="10"
-                    Margin="0, 90, 0, 0"
+                    Margin="0, 40, 0, 0"
                     Background="Transparent"
                     BorderBrush="Transparent"                
                     Height="40"
-                    Width="180"
+                    Width="170"
                     Style="{StaticResource CustomButtonTemplate}" 
                     Click="LogoutButton_Click"/>
 
             </StackPanel>
         </Border>
-      
 
+       
     </Grid>
 </Window>

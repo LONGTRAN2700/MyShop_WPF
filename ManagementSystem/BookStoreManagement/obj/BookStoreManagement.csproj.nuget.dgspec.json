@@ -48,6 +48,10 @@
               "target": "Package",
               "version": "[10.0.4, )"
             },
+            "LiveCharts.Wpf.NetCore3": {
+              "target": "Package",
+              "version": "[0.9.8, )"
+            },
             "PropertyChanged.Fody": {
               "target": "Package",
               "version": "[4.1.0, )"

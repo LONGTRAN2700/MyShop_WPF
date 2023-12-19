@@ -7,93 +7,105 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Customers\CustomersWindow.xaml.cs">
+    <Compile Update="InforUserWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Customers\DetailCustomer.xaml.cs">
+    <Compile Update="SettingWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="DashboardWindow.xaml.cs">
+    <Compile Update="UI\Customers\CustomersWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="LoginWindow.xaml.cs">
+    <Compile Update="UI\Customers\DetailCustomer.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Orders\AddOrderWindow.xaml.cs">
+    <Compile Update="UI\DashBoard\DashboardWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Orders\DetailOrderWindow.xaml.cs">
+    <Compile Update="UI\Login\LoginWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Orders\NewCustomerWindow.xaml.cs">
+    <Compile Update="UI\Orders\AddOrderWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Orders\OrdersWindow.xaml.cs">
+    <Compile Update="UI\Orders\DetailOrderWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Products\AddProductWindow.xaml.cs">
+    <Compile Update="UI\Orders\NewCustomerWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Products\DetailProductWindow.xaml.cs">
+    <Compile Update="UI\Orders\OrdersWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Products\ProductsWindow.xaml.cs">
+    <Compile Update="UI\Products\AddProductWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Products\UpdateProductWindow.xaml.cs">
+    <Compile Update="UI\Products\DetailProductWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="registerWindow.xaml.cs">
+    <Compile Update="UI\Products\ProductsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Statistic\StatisticWindow.xaml.cs">
+    <Compile Update="UI\Products\UpdateProductWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Login\registerWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="UI\Statistic\StatisticWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Customers\CustomersWindow.xaml">
+    <Page Update="InforUserWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Customers\DetailCustomer.xaml">
+    <Page Update="SettingWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="DashboardWindow.xaml">
+    <Page Update="UI\Customers\CustomersWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="LoginWindow.xaml">
+    <Page Update="UI\Customers\DetailCustomer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\DashBoard\DashboardWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UI\Login\LoginWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Orders\AddOrderWindow.xaml">
+    <Page Update="UI\Orders\AddOrderWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Orders\DetailOrderWindow.xaml">
+    <Page Update="UI\Orders\DetailOrderWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Orders\NewCustomerWindow.xaml">
+    <Page Update="UI\Orders\NewCustomerWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Orders\OrdersWindow.xaml">
+    <Page Update="UI\Orders\OrdersWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Products\AddProductWindow.xaml">
+    <Page Update="UI\Products\AddProductWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Products\DetailProductWindow.xaml">
+    <Page Update="UI\Products\DetailProductWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Products\ProductsWindow.xaml">
+    <Page Update="UI\Products\ProductsWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Products\UpdateProductWindow.xaml">
+    <Page Update="UI\Products\UpdateProductWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="registerWindow.xaml">
+    <Page Update="UI\Login\registerWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Statistic\StatisticWindow.xaml">
+    <Page Update="UI\Statistic\StatisticWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Resource Update="Resource\ColorResource.xaml">
