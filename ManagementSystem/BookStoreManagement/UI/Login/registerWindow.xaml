@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStoreManagement"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="registerWindow" Height="525" Width="700" ResizeMode="CanMinimize">
     <Window.Resources>
         <ResourceDictionary>

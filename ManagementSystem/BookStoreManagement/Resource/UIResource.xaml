@@ -284,6 +284,38 @@
         </Setter>
     </Style>
 
+    <!--DataPicker Style-->
+    <Style x:Key="DatePickerStyle" TargetType="{x:Type DatePicker}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DatePicker}">
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="PART_Button"
+                            Content="{TemplateBinding DatePickerTextBox.Text}"
+                            Padding="0"
+                            BorderThickness="0"
+                            Background="Aqua"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <ContentPresenter />
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Popup x:Name="PART_Popup"
+                           PlacementTarget="{Binding ElementName=PART_Button}"
+                           StaysOpen="False"
+                           IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                           AllowsTransparency="True">
+                            <Calendar SelectedDate="{Binding SelectedDate, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Popup>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
 
                 

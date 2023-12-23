@@ -17,6 +17,8 @@
     <None Remove="Images\Main\menu.png" />
     <None Remove="Images\Orders\delete.png" />
     <None Remove="Images\Orders\deleteButton.png" />
+    <None Remove="Images\Orders\Home.png" />
+    <None Remove="Images\Orders\reload.png" />
     <None Remove="Images\Products\back.png" />
     <None Remove="Images\Products\Detail.png" />
     <None Remove="Images\Products\Search.png" />
@@ -59,6 +61,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Orders\deleteButton.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Orders\reload.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Products\back.png" />

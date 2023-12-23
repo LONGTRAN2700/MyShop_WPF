@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStoreManagement"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="NewCustomerWindow" Height="400" Width="600" ResizeMode="CanMinimize">
 
     <Window.Resources>
@@ -48,7 +49,7 @@
                         <TextBlock Name="txtErrorName"
                                    Text="*Chưa điền thông tin"
                                    FontSize="9"
-                                   Width="0"
+                                   Visibility="Hidden"
                                    VerticalAlignment="Center"
                                    Foreground="Red"
                                    Margin="0, 0, 0, 0"/>
@@ -71,7 +72,7 @@
                             
                             Margin="0, 15, 0, 0">
                     <StackPanel Orientation="Horizontal">
-                        <Label  Content="Địa chỉ:" 
+                        <Label  Content="Địa chỉ giao hàng:" 
                             FontSize="12"
                             FontWeight="Bold"
                             Foreground="Brown"
@@ -79,7 +80,7 @@
                         <TextBlock Name="txtErrorAddress"
                                    Text="*Chưa điền thông tin"
                                    FontSize="9"
-                                   Width="0"
+                                   Visibility="Hidden"
                                    VerticalAlignment="Center"
                                    Foreground="Red"
                                    Margin="0, 0, 0, 0"/>
@@ -107,7 +108,7 @@
                         <TextBlock Name="txtErrorSex"
                                    Text="*Chưa điền thông tin"
                                    FontSize="9"
-                                   Width="0"
+                                   Visibility="Hidden"
                                    VerticalAlignment="Center"
                                    Foreground="Red"
                                    Margin="0, 0, 0, 0"/>
@@ -139,7 +140,7 @@
                         <TextBlock Name="txtErrorPhone"
                                    Text="*Chưa điền thông tin"
                                    FontSize="9"
-                                   Width="0"
+                                   Visibility="Hidden"
                                    VerticalAlignment="Center"
                                    Foreground="Red"
                                    Margin="0, 0, 0, 0"/>
@@ -166,7 +167,7 @@
                         <TextBlock Name="txtErrorEmail"
                                    Text="*Chưa điền thông tin"
                                    FontSize="9"
-                                   Width="0"
+                                   Visibility="Hidden"
                                    VerticalAlignment="Center"
                                    Foreground="Red"
                                    Margin="0, 0, 0, 0"/>

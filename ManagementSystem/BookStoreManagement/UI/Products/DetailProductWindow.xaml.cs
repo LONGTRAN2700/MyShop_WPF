@@ -109,7 +109,6 @@ namespace BookStoreManagement.Products
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-
             var messResult = MessageBox.Show("Bạn có chắc muốn xóa sản phẩm này","Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (messResult == MessageBoxResult.Yes) 
             {

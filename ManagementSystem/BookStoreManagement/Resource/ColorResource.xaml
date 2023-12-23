@@ -7,4 +7,20 @@
         <GradientStop Color="AliceBlue"  Offset="0.5"/>
         <GradientStop Color="White"  Offset="1.0"/>
     </LinearGradientBrush>
+
+    <!-- Light background -->
+    <LinearGradientBrush x:Key="LightColorBackground" 
+                         StartPoint="0,0" 
+                         EndPoint="1,1">
+        <GradientStop Color="Cornsilk"  Offset="0.0"/>
+        <GradientStop Color="Aqua"  Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <!-- Dark background -->
+    <LinearGradientBrush x:Key="DarkColorBackground" 
+                         StartPoint="0,0" 
+                         EndPoint="1,1">
+        <GradientStop Color="Blue"  Offset="0.0"/>
+        <GradientStop Color="Purple"  Offset="1.0"/>
+    </LinearGradientBrush>
 </ResourceDictionary>

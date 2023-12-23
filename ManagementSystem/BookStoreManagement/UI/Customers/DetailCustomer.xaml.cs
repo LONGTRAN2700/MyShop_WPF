@@ -127,6 +127,29 @@ namespace BookStoreManagement.Customers
 
             return Result;
         }
+
+        private void deleteCustomerButton_Click(object sender, RoutedEventArgs e)
+        {
+            string sql_deleteCustomer;
+            var Result = MessageBox.Show("Bạn có chắc chắn muốn xóa khách hàng này", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Information);
+            if (Result == MessageBoxResult.Yes)
+            {
+                if (customerItem != null)
+                {
+                    sql_deleteCustomer = @"DELETE FROM Customers
+                                              WHERE CustomerID = " + customerItem.CustomerID;
+                    DBConnect.DB.Query(sql_deleteCustomer);
+
+                    MessageBox.Show("Đã xóa thành công", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    NavigateBackToCustomersWindow?.Invoke(this, EventArgs.Empty); //Quay về lại màn hình trước đó
+                }
+                else
+                    return;
+            }
+            else
+                return;
+        }
     }
 }
 

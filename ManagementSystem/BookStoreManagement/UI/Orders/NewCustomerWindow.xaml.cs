@@ -26,9 +26,14 @@ namespace BookStoreManagement.Orders
 
         private void registButton_Click(object sender, RoutedEventArgs e)
         {
+            if (isEmptyData() == true)
+            {
+                return;
+            }
+
             string sql;
-            sql = @"INSERT INTO Customers (Name, Sex, Address, Email, Phone) VALUES
-                    (N'" + txtName.Text + "', N'" + txtSex.Text + "', '" + txtAddress.Text + "', '" + txtEmail.Text + "', '" + txtPhone.Text + "')";
+            sql = $@"INSERT INTO Customers (Name, Sex, Address, Email, Phone) VALUES
+                    (N'{txtName.Text}', N'{txtSex.Text}', N'{ txtAddress.Text}', N'{txtEmail.Text}', N'{txtPhone.Text}')";
 
             var Result = MessageBox.Show("Bạn có chắc chắn muốn đăng kí", "Thông báo", MessageBoxButton.YesNo, MessageBoxImage.Information);
 
@@ -39,8 +44,59 @@ namespace BookStoreManagement.Orders
                 this.Close();
             }
             else
-                return;
-           
+                return;           
+        }
+
+        //Kiem tra co o nao chua nhap vao
+        private bool isEmptyData()
+        {
+            bool Result = false;
+
+            bool dk1 = txtName.Text.Trim().Length == 0;
+            bool dk2 = txtSex.Text.Trim().Length == 0;
+            bool dk3 = txtPhone.Text.Trim().Length == 0;
+            bool dk4 = txtEmail.Text.Trim().Length == 0;
+            bool dk5 = txtAddress.Text.Trim().Length == 0;
+
+            if (dk1)
+            {
+                txtErrorName.Visibility = Visibility.Visible;
+                Result = true;
+            }
+            else
+                txtErrorName.Visibility = Visibility.Hidden;
+            if (dk2)
+            {
+                txtErrorSex.Visibility = Visibility.Visible;
+                Result = true;
+            }
+            else
+                txtErrorSex.Visibility = Visibility.Hidden;
+
+            if (dk3)
+            {
+                txtErrorPhone.Visibility = Visibility.Visible;
+                Result = true;
+            }
+            else
+                txtErrorPhone.Visibility = Visibility.Hidden;
+
+            if (dk4)
+            {
+                txtErrorEmail.Visibility = Visibility.Visible;
+                Result = true;
+            }
+            else
+                txtErrorEmail.Visibility = Visibility.Hidden;
+
+            if (dk5)
+            {
+                txtErrorAddress.Visibility = Visibility.Visible;
+                Result = true;
+            }
+            else
+                txtErrorAddress.Visibility = Visibility.Hidden;
+            return Result;
         }
     }
 }

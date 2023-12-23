@@ -24,7 +24,7 @@
         <Border Name="Border"
                 Background="White"
                 CornerRadius="5"
-                BorderThickness="2"
+                BorderThickness="1"
                 VerticalAlignment="Top"
                 Grid.Row="1"                
                 Width="660"
@@ -33,7 +33,7 @@
                 <DropShadowEffect
                     Color="Black"
                     Direction="320"
-                    ShadowDepth="0"
+                    ShadowDepth="2"
                     BlurRadius="5"
                     Opacity="0.5" />
             </Border.Effect>
@@ -180,69 +180,88 @@
             </ListView.ItemContainerStyle>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Button Name="detailOrderButton"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Margin="0, 7, 0, 7"
-                            Height ="45"
-                            Width="650"
-                            Background="LightGreen"
-                            BorderBrush="Transparent"                           
+                    <Border 
+                          CornerRadius="5"  
+                          BorderThickness="0.5"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Margin="0, 7, 0, 7"
+                          Height ="45"
+                          Width="650"
+                          Background="LightGreen"
+                          BorderBrush="Transparent">
+                        <Border.Effect>
+                            <DropShadowEffect
+                    Color="Gray"
+                    Direction="320"
+                    ShadowDepth="2"
+                    BlurRadius="5"
+                    Opacity="0.5" />
+                        </Border.Effect>
+                        <Button Name="detailOrderButton"
+                                Background="Transparent"
                             Click="detailOrderButton_Click"
                             Style="{StaticResource RoundedButtonStyle}">
-                        <StackPanel Margin="0, 0, 0, 0"
+                            <StackPanel Margin="0, 0, 0, 0"
                                     Orientation="Horizontal"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Center"
                                     Width="650">
-                            <!--Mã hóa đơn--> 
-                            <TextBlock x:Name="txtOrderID" 
+                                <!--Mã hóa đơn-->
+                                <TextBlock x:Name="txtOrderID" 
                                        Width="65"
                                        TextAlignment="Center"
                                        Text="{Binding OrderId}" 
-                                       FontSize="11"  
+                                       FontSize="11" 
                                        Margin="0, 0, 0, 0"
                                        FontWeight="Medium"/>
-                            
-                            <!--Tên khách hàng-->
-                            <TextBlock Text="{Binding CustomerName}"
+
+                                <!--Tên khách hàng-->
+                                <TextBlock Text="{Binding CustomerName}"
                                        FontSize="11"
                                        Width="180"
                                        Margin="0, 0, 0, 0"
                                        TextAlignment="Center"
                                        FontWeight="Medium"/>
-                            
-                            <!--Thời gian-->
-                            <TextBlock Text="{Binding OrderDate}"
+
+                                <!--Thời gian-->
+                                <TextBlock Text="{Binding OrderDate}"
                                        FontSize="11"
-                                       Width="130"
+                                       Width="130"  
                                        TextAlignment="Center"
                                        Margin="0, 0, 0, 0"
                                        FontWeight="Medium"/>
 
-                            <!--Trạng thái-->
-                            <TextBlock Text="{Binding Status}"
+                                <!--Trạng thái-->
+                                <TextBlock Text="{Binding Status}"
                                        FontSize="11"
-                                       Width="100"
+                                       Width="100"                                      
                                        TextAlignment="Center"
                                        Margin="35, 0, 10, 0"
                                        FontWeight="Medium"/>
 
-                            <!--Tổng tiền-->
-                            <TextBlock Text="{Binding TotalAmount, Converter={StaticResource MoneyConverter}}"
+                                <!--Tổng tiền-->
+                                <TextBlock Text="{Binding TotalAmount, Converter={StaticResource MoneyConverter}}"
                                        FontSize="11"
                                        Width="140"
+                                       Foreground="Brown"
                                        TextAlignment="Center"
                                        Margin="0, 0, 10, 0"
                                        FontWeight="Medium"
                                        />
-                        </StackPanel>
-                    </Button>
+                            </StackPanel>
+                        </Button>
+                    </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
-        <Grid Grid.Row="0">
+
+        <StackPanel Orientation="Horizontal"
+                    Margin="65, 10,0,0"
+                    HorizontalAlignment="Left"                    
+                    Height="30"
+                    >
             <Button x:Name="AddOrder"
                     Content="➕Tạo" 
                     Width="55"
@@ -252,10 +271,120 @@
                     Background="LightGreen"
                     FontSize="11"
                     FontWeight="Medium"
-                    Margin="20, 0, 5, 0"
+                    Margin="0, 0, 5, 0"
                     Style="{StaticResource RoundedButtonStyle}" 
                     Click="AddOrder_Click"/>
-        </Grid>
+            <Border 
+                CornerRadius="5"  
+                BorderThickness="1"
+                Background="White"
+                Margin="205,0,0,0">
+                <Border.Effect>
+                    <DropShadowEffect
+                    Color="Black"
+                    Direction="320"
+                    ShadowDepth="1"
+                    BlurRadius="10"
+                    Opacity="0.5" />
+                </Border.Effect>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Ngày bắt đầu:"
+                           FontSize="9"
+                           Height="25"
+                           
+                           FontWeight="Medium"/>
+                    <DatePicker Name="StartDatePicker" 
+                                FontSize="10"
+                                Height="25"
+                                BorderBrush="Transparent"
+                                Width="100" 
+                                IsTodayHighlighted="True"
+                                SelectedDateChanged="StartDatePicker_SelectedDateChanged">
+                        <DatePicker.Resources>
+                            <Style TargetType="{x:Type DatePickerTextBox}">
+                                <Setter Property="Control.Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <TextBox x:Name="PART_TextBox" 
+                                                     Text="{Binding Path=SelectedDate, 
+                                                            RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, 
+                                                            StringFormat={}{0:yyyy/MM/dd}}" 
+                                                      BorderBrush="Transparent"
+                                                      Padding="0,1,0,0"
+                                                      IsEnabled="False"
+                                                      FontWeight="Bold"/>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
+                </StackPanel>
+            </Border>
+
+            <Border 
+                CornerRadius="5"  
+                BorderThickness="1"
+                Background="White"
+                Margin="10,0,0,0">
+                <Border.Effect>
+                    <DropShadowEffect
+                    Color="Black"
+                    Direction="320"
+                    ShadowDepth="1"
+                    BlurRadius="10"
+                    Opacity="0.5" />
+                </Border.Effect>
+                <StackPanel  Orientation="Horizontal">
+                    <Label Content="Ngày kết thúc:"
+                           FontSize="9"
+                           Height="25"
+                           FontWeight="Medium"/>
+                    <DatePicker Name="EndDatePicker" Margin="0"
+                                Width="100"
+                                Height="25"
+                                FontSize="10"
+                                BorderBrush="Transparent"
+                                IsTodayHighlighted="True"
+                                SelectedDateChanged="EndDatePicker_SelectedDateChanged">
+                        <DatePicker.Resources>
+                            <Style TargetType="{x:Type DatePickerTextBox}">
+                                <Setter Property="Control.Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <TextBox x:Name="PART_TextBox" 
+                                                     Text="{Binding Path=SelectedDate, 
+                                                            RelativeSource={RelativeSource AncestorType={x:Type DatePicker}}, 
+                                                            StringFormat={}{0:yyyy/MM/dd}}" 
+                                                      BorderBrush="Transparent"
+                                                      Padding="0,1,0,0"
+                                                      IsEnabled="False"
+                                                      FontWeight="Bold"/>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DatePicker.Resources>
+                    </DatePicker>
+                </StackPanel>
+            </Border>
+
+            
+            <Button Name="ReloadButton" 
+                    Height="30" 
+                    Width="30"
+                    Background="White"
+                    BorderThickness="1"
+                    Click="Reload_Click"
+                    Style="{StaticResource RoundedButton}"
+                    Margin="10,0,0,0">
+                <Image Source="../../Images/Orders/reload.png"
+                       RenderOptions.BitmapScalingMode="HighQuality"
+                       Height="20"
+                       Width="20" 
+                       />
+            </Button>
+        </StackPanel>
         <StackPanel Orientation="Horizontal"
                     Grid.Row="1"
                     VerticalAlignment="Bottom"

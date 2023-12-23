@@ -52,7 +52,7 @@
                     Opacity="0.5" />
             </Border.Effect>
             <StackPanel >
-                <Label Content="PRODUCTS"
+                <Label Content="PRODUCTS  📖"
                        FontSize="10"
                        FontWeight="Medium"
                        Foreground="Gray"
@@ -94,7 +94,7 @@
                     Opacity="0.5" />
             </Border.Effect>
             <StackPanel Name="OrderStackPanel">
-                <Label Content="ORDERS"
+                <Label Content="ORDERS  📦"
                         FontSize="10"
                        FontWeight="Medium"
                        Foreground="Gray"
@@ -135,7 +135,7 @@
                     Opacity="0.5" />
             </Border.Effect>
             <StackPanel>
-                <Label Content="RUNNING OUT OF STOCK"
+                <Label Content="RUNNING OUT OF STOCK  📛"
                        FontSize="10"
                        FontWeight="Medium"
                        Foreground="Gray"
@@ -174,7 +174,7 @@
                     Opacity="0.5" />
             </Border.Effect>
             <StackPanel>
-                <Label Content="CUSTOMER"
+                <Label Content="CUSTOMER  🙎🏼‍"
                        FontSize="10"
                        FontWeight="Medium"
                        Foreground="Gray"
@@ -191,7 +191,7 @@
                        Margin="10,0,0,0"/>
             </StackPanel>
         </Border>
-
+        
         <Border 
                 CornerRadius="5"  
                 BorderBrush="{StaticResource ColorBackground1}" 
@@ -220,13 +220,12 @@
                            >
                 <lvc:CartesianChart.Series>
                     <lvc:ColumnSeries Name="columnChartName"      
-                                  Title="Doanh thu mỗi tháng"
-                                  FontSize="8"
+                                  Title="{Binding Title}"
                                   Values="{Binding Values}"
+                                  FontSize="8"                                
                                   MaxColumnWidth = "20"
                                   ColumnPadding = "5"
-                                  DataLabels = "True"
-                                  >
+                                  DataLabels = "True">
                     </lvc:ColumnSeries>
                     
                 </lvc:CartesianChart.Series>
@@ -313,20 +312,33 @@
                 </lvc:PieChart.Series>
             </lvc:PieChart>
         </Border>
-        
-        <ComboBox Name="YearCombobox"
-                  Text="2023"
-                  Grid.Column="0"
-                  Grid.Row="1"
-                  Width="60"
-                  Height="30"
-                  VerticalAlignment="Top"
+
+        <Border 
+                CornerRadius="5"  
+                BorderBrush="{StaticResource ColorBackground1}" 
+                Grid.Column="0"
+                Grid.Row="1"
+                Width="70"
+                Height="30"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Margin="10,0,0,0"
+                Background="White">
+            <Border.Effect>
+                <DropShadowEffect
+                    Color="Black"
+                    Direction="320"
+                    ShadowDepth="2"
+                    BlurRadius="10"
+                    Opacity="0.5" />
+            </Border.Effect>
+            <ComboBox Name="YearCombobox" 
+                  ItemsSource="{Binding years}"
+                  FontWeight="Medium"
+                  
                   Style="{StaticResource ComboBoxFlatStyle}"
                   SelectionChanged="YearCombobox_SelectionChanged">
-            <ComboBoxItem Content="2021"/>
-            <ComboBoxItem Content="2022"/>
-            <ComboBoxItem Content="2023"/>
-            <ComboBoxItem Content="2024"/>
-        </ComboBox>
+            </ComboBox>
+        </Border>
     </Grid>
 </UserControl>

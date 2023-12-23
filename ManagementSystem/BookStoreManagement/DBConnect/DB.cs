@@ -10,7 +10,7 @@ namespace BookStoreManagement.DBConnect
 {
     public class DB
     {
-        static string sConnect = @"Data Source = DESKTOP-9VA9GQ7\SQLEXPRESS; 
+        static string sConnect = @"Data Source = .\SQLEXPRESS; 
                                         Initial Catalog = MYSHOPTEST01;
                                         Integrated Security = True";
         static SqlConnection? cn;

@@ -42,7 +42,26 @@
                        FontSize="22"
                        FontWeight="medium"
                        Margin="200,10,0,0"/>
-           
+           <Button 
+               x:Name="deleteCustomerButton"
+                Content="Xóa"
+                FontWeight="Bold"
+                FontSize="9"
+                Click="deleteCustomerButton_Click"
+                Width="45"
+                Height="25"
+                HorizontalAlignment="Right"
+                Margin="200,0,0,0"       
+                Foreground="Brown"
+                Style="{StaticResource RoundedButtonStyle}">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFEEEFF4" Offset="1"/>
+                        <GradientStop Color="#FFDFF3F1" Offset="0.52"/>
+                        <GradientStop Color="#FFA0F8F0" Offset="0"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
         </StackPanel>
 
         <StackPanel Margin="0, 50, 0, 0"

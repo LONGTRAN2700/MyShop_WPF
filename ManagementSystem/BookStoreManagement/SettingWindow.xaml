@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStoreManagement"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="SettingWindow" Height="280" Width="450" Loaded="Setting_Loaded"
         ResizeMode="CanMinimize">
 

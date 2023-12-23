@@ -27,7 +27,8 @@ namespace BookStoreManagement
     {      
         public DashboardWindow()
         {
-            InitializeComponent();          
+            InitializeComponent();
+            
         }
 
         public SeriesCollection? ColumnData { get; set; }
@@ -41,7 +42,7 @@ namespace BookStoreManagement
         {
             columnSeries = new ColumnSeries
             {
-                Title = "Doanh thu mỗi tháng",
+                Title = "DOANH THU MỖI THÁNG TRONG NĂM " + YearCombobox.SelectedItem,
                 Values = new ChartValues<int>
                 {
                         GetRevenueInMonth(1, year),
@@ -59,6 +60,8 @@ namespace BookStoreManagement
                 },
             
             };
+
+            
             columnChartName.DataContext = columnSeries;
             
 
@@ -72,7 +75,7 @@ namespace BookStoreManagement
         {
             string sql = $@"SELECT COALESCE(SUM(TotalAmount), 0)
                             FROM Orders
-                            WHERE DATEPART(MONTH, OrderDate) = {month} AND DATEPART(YEAR, OrderDate) = {year}";
+                            WHERE Status = N'Đã giao thành công' AND DATEPART(MONTH, OrderDate) = {month} AND DATEPART(YEAR, OrderDate) = {year}";
             return DBConnect.DB.QueryResult(sql);
         }
 
@@ -206,6 +209,17 @@ namespace BookStoreManagement
 
             //Biểu đồ tròn
             DoughNutChart(yearNow);
+
+            //Hiển thị năm hiện tại 
+            YearCombobox.SelectedItem = yearNow.ToString();
+
+            //Danh sách các năm trở lại đây 
+            List<string> years = new List<string>();
+            for (int i = yearNow; i >= 2020; i--)
+            {
+                years.Add(i.ToString());
+            }
+            YearCombobox.ItemsSource = years;
         }
         private int toINT(string text)
         {
@@ -222,7 +236,8 @@ namespace BookStoreManagement
 
         private void YearCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            string? selectedYear = ((ComboBoxItem)YearCombobox.SelectedItem).Content.ToString();
+            //string? selectedYear = ((ComboBoxItem)YearCombobox.SelectedItem).Content.ToString();
+            string? selectedYear = YearCombobox.SelectedItem as string;
             if (selectedYear != null)
             {
                 ColumnChart(toINT(selectedYear));

@@ -7,44 +7,97 @@
              xmlns:wf="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
-             Height="530" Width="790" Loaded="UserControl_Loaded">
+             Height="530" Width="790" Loaded="Statistic_Loaded">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <local:RelativeToAbsoluteConverter x:Key="AbsoluteConverter"/>
+            <local:ToMoneyConverter x:Key="MoneyConverter"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Resource/UIResource.xaml"/>
+                <ResourceDictionary Source="../../Resource/ColorResource.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions>-->
 
 
-        <lvc:CartesianChart Series="{Binding ColumnData}"                           
-                            LegendLocation ="Bottom"                            
-                            Height="200" 
-                            Width="700"
-                            Grid.ColumnSpan="2"
-                            Grid.Column="0"
-                            Grid.Row="1">           
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="    "
-                          Margin="0,0,0,20"
-                          FontSize="12"
-                          Labels ="{Binding Labels}">
-                    <lvc:Axis.Separator>
-                        <lvc:Separator Step="1" IsEnabled="False"/>
-                    </lvc:Axis.Separator>
-                </lvc:Axis>
-            </lvc:CartesianChart.AxisX>
+        <Border 
+                CornerRadius="5"  
+                BorderBrush="{StaticResource ColorBackground1}" 
+                Grid.Column="0"
+                Grid.Row="0"
+                Height="300"                        
+                Margin="30,0,50,0" 
+                Background="White">
+            <Border.Effect>
+                <DropShadowEffect
+                    Color="Black"
+                    Direction="320"
+                    ShadowDepth="2"
+                    BlurRadius="10"
+                    Opacity="0.5" />
+            </Border.Effect>
+            <lvc:CartesianChart 
+                            BorderBrush="Brown"
+                            Background="White"                           
+                            FontSize="10"                            
+                            Foreground="Black"
+                            FontWeight="Bold"
+                            VerticalContentAlignment="Top"                           
+                            LegendLocation="Top"
+                           >
+                <lvc:CartesianChart.Series>
+                    <lvc:ColumnSeries Name="columnChartName"      
+                                  Title="{Binding Title}"
+                                  Values="{Binding Values}"
+                                  FontSize="10"                                
+                                  MaxColumnWidth = "35"
+                                  ColumnPadding = "5"
+                                  DataLabels = "True">
+                    </lvc:ColumnSeries>
 
-            <lvc:CartesianChart.AxisY >
-                <lvc:Axis Title="Revenue" Labels ="{Binding Values}">
-                    <lvc:Axis.Separator>
-                        <lvc:Separator IsEnabled="False"/>
-                    </lvc:Axis.Separator>
-                </lvc:Axis>
-               
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
+                </lvc:CartesianChart.Series>
+                <lvc:CartesianChart.ChartLegend>
+                    <lvc:DefaultLegend BulletSize="0" 
+                                   Margin="0,0,30,0"
+                                   Foreground="Gray"
+                                   FontWeight="Bold"
+                                   FontSize="14"/>
+                </lvc:CartesianChart.ChartLegend>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Name="labelsName"                         
+                          FontSize="9"                         
+                          FontWeight="Medium"
+                          HorizontalAlignment="Center"
+                          Labels ="{Binding Labels}"
+                          >
+                        <lvc:Axis.Separator>
+                            <lvc:Separator Step="1"                                     
+                                       IsEnabled="False" 
+                                       Margin="0,0,20,0"
+                                        Width="10"/>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+                </lvc:CartesianChart.AxisX>
+
+                <lvc:CartesianChart.AxisY >
+                    <lvc:Axis Title=""
+                          Labels ="{Binding Values}" >
+                        <lvc:Axis.Separator>
+                            <lvc:Separator IsEnabled="True"/>
+                        </lvc:Axis.Separator>
+                    </lvc:Axis>
+
+                </lvc:CartesianChart.AxisY>
+            </lvc:CartesianChart>
+        </Border>
     </Grid>
 </UserControl>
