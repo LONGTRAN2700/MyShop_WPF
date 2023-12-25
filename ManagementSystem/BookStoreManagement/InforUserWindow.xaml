@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStoreManagement"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
         Title="InforUserWindow" Height="400" Width="650" Loaded="InforUser_Loaded">
     <Window.Resources>
         <ResourceDictionary>

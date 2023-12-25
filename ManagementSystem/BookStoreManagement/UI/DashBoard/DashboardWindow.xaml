@@ -232,7 +232,7 @@
                 <lvc:CartesianChart.ChartLegend>
                     <lvc:DefaultLegend BulletSize="0" 
                                    Margin="0,0,30,0"
-                                   Foreground="Gray"
+                                   Foreground="Red"
                                    FontWeight="Bold"
                                    FontSize="12"/>
                 </lvc:CartesianChart.ChartLegend>
@@ -283,34 +283,43 @@
                     BlurRadius="10"
                     Opacity="0.5" />
             </Border.Effect>
-            <lvc:PieChart Name="DoughNut" 
+            <StackPanel>
+                <Label 
+                    Content="Tình trạng đơn hàng"
+                    FontSize="12"
+                    FontWeight="Bold"
+                    Foreground="Red"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"/>
+                <lvc:PieChart Name="DoughNut" 
                       Background="White"
-                      Foreground="Black"                    
-                     
-                      InnerRadius="60"
-                      LegendLocation="Bottom"
-                      
+                      Foreground="Black"                                        
+                      InnerRadius="50"
+                      LegendLocation="Bottom"                      
                       FontSize="9"
-                     >
-                <lvc:PieChart.Series>
-                    <lvc:PieSeries Name="pieChart1"
+                      Height="220"
+                      Margin="0,0,0,0">
+                    <lvc:PieChart.Series>
+                        <lvc:PieSeries Name="pieChart1"
                                Values="{Binding Values}"
                                Title="{Binding Title}"
                                DataLabels="True"/>
-                    <lvc:PieSeries Name="pieChart2"
+                        <lvc:PieSeries Name="pieChart2"
                                Values="{Binding Values}"
                                Title="{Binding Title}"
                                DataLabels="True"/>
-                    <lvc:PieSeries Name="pieChart3"
+                        <lvc:PieSeries Name="pieChart3"
                                Values="{Binding Values}"
                                Title="{Binding Title}"
                                DataLabels="True"/>
-                    <lvc:PieSeries Name="pieChart4"
+                        <lvc:PieSeries Name="pieChart4"
                                Values="{Binding Values}"
                                Title="{Binding Title}"
                                DataLabels="True"/>
-                </lvc:PieChart.Series>
-            </lvc:PieChart>
+                    </lvc:PieChart.Series>
+                </lvc:PieChart>
+            </StackPanel>
+            
         </Border>
 
         <Border 

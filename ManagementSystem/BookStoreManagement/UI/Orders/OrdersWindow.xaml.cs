@@ -38,7 +38,6 @@ namespace BookStoreManagement.Orders
             StatusCombobox.SelectedIndex = 0;
             LoadDefault();
             UpdatePageInfo();
-
         }
 
         //-----------------TÍNH NĂNG PHÂN TRANG-----------------

@@ -329,7 +329,7 @@ namespace BookStoreManagement.Products
         }
 
 
-        //Sự kiện Import dữ liệu từ file Excel từ file excel vào
+        //Sự kiện Import dữ liệu từ file Excel vào
         private void ImportProduct_Click(object sender, RoutedEventArgs e)
         {
             var openFileDialog = new OpenFileDialog
