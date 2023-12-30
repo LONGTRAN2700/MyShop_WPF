@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Globalization;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Configuration;
+using System.Security.Cryptography;
 
 namespace BookStoreManagement
 {
@@ -26,9 +29,11 @@ namespace BookStoreManagement
             InitializeComponent();
         }
 
-        private void registerButton_Click(object sender, RoutedEventArgs e)
+
+
+        private void SignUpButton_Click(object sender, RoutedEventArgs e)
         {
-            var screen = new registerWindow();
+            var screen = new SignUpWindow();
             if (screen.ShowDialog() == true)
             {
                 //
@@ -68,6 +73,10 @@ namespace BookStoreManagement
                 {
                     if (txtPassword.Password.Trim() == (string)dt.Rows[i]["PasswordHash"])
                     {
+                        if (rememberMe.IsChecked == true)
+                        {
+                            SavePass(txtUsername.Text, txtPassword.Password);
+                        }
                         var mainscreen = new MainWindow(txtUsername.Text.Trim());
                         mainscreen.Show();
                         this.Close();
@@ -82,6 +91,56 @@ namespace BookStoreManagement
                              MessageBoxImage.Error);
             return;
         }
-    
+
+        //Mã hóa mật khẩu
+        private void SavePass(string username, string password)
+        {
+            var passwordInBytes = Encoding.UTF8.GetBytes(password);
+            var entropy = new byte[20];
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(entropy);
+            }
+            var cypherText = ProtectedData.Protect(passwordInBytes, entropy,
+                DataProtectionScope.CurrentUser);
+            var passwordIn64 = Convert.ToBase64String(cypherText);
+            var entropyIn64 = Convert.ToBase64String(entropy);
+
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["username"].Value = username;
+            config.AppSettings.Settings["password"].Value = passwordIn64;
+            config.AppSettings.Settings["entropy"].Value = entropyIn64;
+            config.Save(ConfigurationSaveMode.Minimal);
+
+            ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        //Giải mã password
+        private void UnmaskPass()
+        {
+            var passwordIn64 = ConfigurationManager.AppSettings["password"];
+
+            if (passwordIn64.Length != 0)
+            {
+                var entropyIn64 = ConfigurationManager.AppSettings["entropy"];
+
+                var cyperTextInBytes = Convert.FromBase64String(passwordIn64);
+                var entropyInBytes = Convert.FromBase64String(entropyIn64);
+
+                var passwordInBytes = ProtectedData.Unprotect(cyperTextInBytes, entropyInBytes,
+                    DataProtectionScope.CurrentUser);
+                var password = Encoding.UTF8.GetString(passwordInBytes);
+                txtPassword.Password = password;
+
+                txtUsername.Text = ConfigurationManager.AppSettings["username"];
+            }
+        }
+
+        private void Login_Loaded(object sender, RoutedEventArgs e)
+        {
+            //Nếu mật khẩu được lưu sẽ tự động hiển thị tài khoản mật khẩu ra màn hình cho việc đăng nhập lần sau
+            UnmaskPass();
+        }
     }
+    
 }

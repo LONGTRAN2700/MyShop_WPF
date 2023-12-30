@@ -1,0 +1,193 @@
+﻿<Window x:Class="BookStoreManagement.Orders.NewCustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookStoreManagement"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Thêm khách hàng" Height="400" Width="600" ResizeMode="CanMinimize">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../Resource/UIResource.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Label Content="Thêm khách hàng mới"
+               FontSize="18"
+               FontWeight="Medium"
+               HorizontalAlignment="Center"/>
+        
+        <StackPanel Margin="10, 50, 10, 0"
+                     Grid.Column="1"
+                    HorizontalAlignment="Center" 
+                    Width="450" Height="300"
+                   >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="56" />
+                    <RowDefinition Height="71" />
+                    <RowDefinition Height="76" />
+                </Grid.RowDefinitions>
+
+                <!-- Tên khách hàng -->
+                <StackPanel Grid.Row="0" Grid.Column="0" >
+                    <StackPanel Orientation="Horizontal">
+                        <Label  Content="Tên khách hàng:" 
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Foreground="Brown"
+                            HorizontalAlignment="Left"/>
+                        <TextBlock Name="txtErrorName"
+                                   Text="*Chưa điền thông tin"
+                                   FontSize="9"
+                                   Visibility="Hidden"
+                                   VerticalAlignment="Center"
+                                   Foreground="Red"
+                                   Margin="0, 0, 0, 0"/>
+                    </StackPanel>
+
+                    <TextBox  Name="txtName"
+                              Width="200" Height="30"
+                              FontSize="12"
+                              FontWeight="Medium"
+                              Margin="4 0 0 0"
+                              HorizontalAlignment="Left"
+                              Style="{StaticResource FlatTextBox}" 
+                              Background="Transparent"/>
+                </StackPanel>
+
+               
+
+                <!-- Địa chỉ -->
+                <StackPanel Grid.Row="2" Grid.Column="0"
+                            
+                            Margin="0, 15, 0, 0">
+                    <StackPanel Orientation="Horizontal">
+                        <Label  Content="Địa chỉ giao hàng:" 
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Foreground="Brown"
+                            HorizontalAlignment="Left"/>
+                        <TextBlock Name="txtErrorAddress"
+                                   Text="*Chưa điền thông tin"
+                                   FontSize="9"
+                                   Visibility="Hidden"
+                                   VerticalAlignment="Center"
+                                   Foreground="Red"
+                                   Margin="0, 0, 0, 0"/>
+                    </StackPanel>
+                    <TextBox Name="txtAddress"
+                             Width="200" Height="30"
+                             FontSize="12"
+                             FontWeight="Medium"
+                             Margin="4 0 0 0"
+                             HorizontalAlignment="Left"
+                             Style="{StaticResource FlatTextBox}" 
+                             Background="Transparent"/>
+                </StackPanel>
+
+                <!-- Giới tính -->
+                <StackPanel Margin="25, 0, 0, 0" 
+                            Grid.Row="0" Grid.Column="1"
+                             >
+                    <StackPanel Orientation="Horizontal">
+                        <Label  Content="Giới tính:" 
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Foreground="Brown"
+                            HorizontalAlignment="Left"/>
+                        <TextBlock Name="txtErrorSex"
+                                   Text="*Chưa điền thông tin"
+                                   FontSize="9"
+                                   Visibility="Hidden"
+                                   VerticalAlignment="Center"
+                                   Foreground="Red"
+                                   Margin="0, 0, 0, 0"/>
+                    </StackPanel>
+                    <ComboBox Name="txtSex"
+                              Height="30"
+                              Width="100" 
+                              FontSize="12"
+                              FontWeight="Medium"
+                              HorizontalAlignment="Left"
+                              Style="{StaticResource ComboBoxFlatStyle}">
+                        <ComboBoxItem>Nam</ComboBoxItem>
+                        <ComboBoxItem>Nữ</ComboBoxItem>
+
+                    </ComboBox>
+
+                </StackPanel>
+
+                <!-- Số điện thoại -->
+                <StackPanel Grid.Row="1" Grid.Column="0"
+
+                            Margin="0, 15, 0, 0">
+                    <StackPanel Orientation="Horizontal">
+                        <Label  Content="Số điện thoại:" 
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Foreground="Brown"
+                            HorizontalAlignment="Left"/>
+                        <TextBlock Name="txtErrorPhone"
+                                   Text="*Chưa điền thông tin"
+                                   FontSize="9"
+                                   Visibility="Hidden"
+                                   VerticalAlignment="Center"
+                                   Foreground="Red"
+                                   Margin="0, 0, 0, 0"/>
+                    </StackPanel>
+                    <TextBox Name="txtPhone"
+                             Width="200" Height="30"
+                             FontSize="12"
+                             FontWeight="Medium"
+                              Margin="4 0 0 0"
+                             HorizontalAlignment="Left"
+                             Style="{StaticResource FlatTextBox}" 
+                             Background="Transparent"/>
+                </StackPanel>
+
+                <!-- Email -->
+                <StackPanel Margin="25, 15 , 0, 0" Grid.Row="1" Grid.Column="1"
+                            >
+                    <StackPanel Orientation="Horizontal">
+                        <Label  Content="Email:" 
+                            FontSize="12"
+                            FontWeight="Bold"
+                            Foreground="Brown"
+                            HorizontalAlignment="Left"/>
+                        <TextBlock Name="txtErrorEmail"
+                                   Text="*Chưa điền thông tin"
+                                   FontSize="9"
+                                   Visibility="Hidden"
+                                   VerticalAlignment="Center"
+                                   Foreground="Red"
+                                   Margin="0, 0, 0, 0"/>
+                    </StackPanel>
+                    <TextBox  Name="txtEmail"
+                              Width="204" Height="30"
+                              FontSize="12"
+                              FontWeight="Medium"
+                              Margin="4 0 0 0"
+                              HorizontalAlignment="Left"
+                              Style="{StaticResource FlatTextBox}" 
+                              Background="Transparent"/>
+                </StackPanel>
+            </Grid>
+            <Button Name="registButton" Content="Đăng ký"
+                    Height="35"
+                   
+                    FontWeight="Bold"
+                    Style="{StaticResource FlatButton}"
+                    Margin="0, 30, 0 ,0" Click="registButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

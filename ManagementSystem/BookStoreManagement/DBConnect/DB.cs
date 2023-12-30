@@ -10,9 +10,16 @@ namespace BookStoreManagement.DBConnect
 {
     public class DB
     {
-        static string sConnect = @"Data Source = .\SQLEXPRESS; 
-                                        Initial Catalog = MYSHOPTEST01;
-                                        Integrated Security = True";
+        private static string? _servername = GlobalData.servername;
+        private static string? _database = GlobalData.database;
+
+        //static string sConnect = @"Data Source = .\SQLEXPRESS; 
+        //                                Initial Catalog = MYSHOPTEST01;
+        //                                Integrated Security = True";
+
+        static string sConnect = @$"Data Source={_servername}; 
+                           Initial Catalog={_database}; 
+                           Integrated Security=True"; 
         static SqlConnection? cn;
 
         //Dùng để Select...

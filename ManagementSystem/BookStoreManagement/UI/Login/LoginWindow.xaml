@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookStoreManagement" 
+        xmlns:local="clr-namespace:BookStoreManagement.Converter" 
         WindowStartupLocation="CenterScreen"
+        Loaded="Login_Loaded"
         mc:Ignorable="d"
-        Title="LoginWindow" Height="528" Width="850" ResizeMode="CanMinimize">
+        Title="Đăng nhập" Height="528" Width="850" ResizeMode="CanMinimize">
     
     <Window.Resources>
 
@@ -149,6 +150,12 @@
                            Width="150"/>
             </StackPanel>
 
+            <CheckBox x:Name="rememberMe" 
+                      Content="Lưu mật khẩu"
+                      FontWeight="Medium"
+                      Margin="55,0,0,0"
+                      HorizontalAlignment="Left" 
+                      VerticalAlignment="Top"/>
             <!-- Login button -->
             <Button Name="LoginButton" 
                     Content="Đăng nhập"
@@ -179,7 +186,7 @@
                    Margin="0,60,0,10">       
                     CHƯA CÓ TÀI KHOẢN? 
                      <Button Style="{StaticResource LinkButton}" 
-                                    Command="{Binding RegisterCommand}" Click="registerButton_Click">
+                                    Command="{Binding RegisterCommand}" Click="SignUpButton_Click">
                         <TextBlock TextDecorations="Underline" 
                                     FontWeight="Bold"
                                     Margin="0,0,0,-3">ĐĂNG KÝ</TextBlock>
@@ -199,10 +206,10 @@
                        HorizontalAlignment="Center" 
                        />
             <Image Name="logoLogin"
-                   Source="../../Images/Login/logoMyshop02.png"
-                   Width="250" 
-                   Height="250" 
-                   Margin="0, 50, 0, 0"
+                   Source="../../Images/Login/background.png"
+                   Width="430" 
+                   Height="300" 
+                   Margin="0, 10, 0, 0"
                    RenderOptions.BitmapScalingMode="HighQuality"/>
 
         </StackPanel>
