@@ -49,8 +49,10 @@ namespace BookStoreManagement.Products
             
         }
 
+   
         private void UpdateWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            
             if (_product != null)
             {
                 txtCategoryName.SelectedValue = _product.CategoryName;
@@ -72,5 +74,6 @@ namespace BookStoreManagement.Products
             }
             txtCategoryName.ItemsSource = _categoryList;
         }
+
     }
 }

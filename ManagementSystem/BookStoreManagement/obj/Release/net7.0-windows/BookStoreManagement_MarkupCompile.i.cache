@@ -1,0 +1,20 @@
+﻿BookStoreManagement
+1.0.0.0
+
+winexe
+C#
+.cs
+C:\Users\dell\Documents\A_Năm_4\HK1\Lập trình Window\Đồ án\Đồ án 1 - Myshop\MyShop_WPF\ManagementSystem\BookStoreManagement\obj\Release\net7.0-windows\
+BookStoreManagement
+none
+false
+TRACE;RELEASE;NET;NET7_0;NETCOREAPP
+C:\Users\dell\Documents\A_Năm_4\HK1\Lập trình Window\Đồ án\Đồ án 1 - Myshop\MyShop_WPF\ManagementSystem\BookStoreManagement\App.xaml
+18-1213047876
+1-1337575707
+37898214224
+220899493344
+UI\Config\ConfigWindow.xaml;UI\Login\LoginWindow.xaml;UI\Main\MainWindow.xaml;UI\Main\Users\InforUserWindow.xaml;UI\Main\Users\SettingWindow.xaml;UI\SignUp\SignUpWindow.xaml;UI\Tabs\Customers\CustomersWindow.xaml;UI\Tabs\Customers\DetailCustomer.xaml;UI\Tabs\DashBoard\DashboardWindow.xaml;UI\Tabs\Orders\AddOrderWindow.xaml;UI\Tabs\Orders\DetailOrderWindow.xaml;UI\Tabs\Orders\NewCustomerWindow.xaml;UI\Tabs\Orders\OrdersWindow.xaml;UI\Tabs\Products\AddProductWindow.xaml;UI\Tabs\Products\DetailProductWindow.xaml;UI\Tabs\Products\ProductsWindow.xaml;UI\Tabs\Products\UpdateProductWindow.xaml;UI\Tabs\Statistic\StatisticWindow.xaml;
+
+True
+

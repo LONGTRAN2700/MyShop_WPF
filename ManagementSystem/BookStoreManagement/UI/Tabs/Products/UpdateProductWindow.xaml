@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookStoreManagement.Converter"
         mc:Ignorable="d"
-        ResizeMode="CanMinimize"       
+        ResizeMode="CanMinimize"
+        
         WindowStartupLocation="CenterScreen"
         Title="Cập nhật sản phẩm" Height="500" Width="690" Loaded="UpdateWindow_Loaded">
     <Window.Resources>

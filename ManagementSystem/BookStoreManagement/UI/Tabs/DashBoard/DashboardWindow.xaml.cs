@@ -310,11 +310,22 @@ namespace BookStoreManagement
                 screen.SetProduct(product);
                 if (screen.ShowDialog() == true)
                 {
+                    //Cap nhat vao CSDL
+                    string sql = @$"UPDATE Products
+                                   SET Quantity = {product.Quantity}
+                                   WHERE ProductId = {product.BookId}";
+                    DBConnect.DB.Query(sql);
+
                     //Load lại danh sách
                     Top5RunOutOfStock();
                 }
                 else
+                {
+                    //Load lại danh sách
+                    Top5RunOutOfStock();
                     return;
+                }
+                   
             }
             else
                 return;

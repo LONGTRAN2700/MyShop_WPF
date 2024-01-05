@@ -110,5 +110,22 @@ namespace BookStoreManagement.UI.Config
             }
 
         }
+
+        private void HintButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (HintBorder.Visibility == Visibility.Hidden)
+            {
+                HintBorder.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                HintBorder.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void CloseHint_Click(object sender, RoutedEventArgs e)
+        {
+            HintBorder.Visibility = Visibility.Hidden;
+        }
     }
 }

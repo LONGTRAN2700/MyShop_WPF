@@ -2,14 +2,16 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net7.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Images\IconApp\iconapp.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\IconApp\DreamBook.png" />
     <None Remove="Images\Login\background.png" />
+    <None Remove="Images\Login\Fix.png" />
     <None Remove="Images\Login\logo.png" />
     <None Remove="Images\Logo.png" />
     <None Remove="Images\Main\Female.png" />
@@ -43,7 +45,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\IconApp\DreamBook.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\Login\background.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Login\Fix.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\Main\Female.png">

@@ -3,28 +3,52 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookStoreManagement.UI.Config"
+        xmlns:local="clr-namespace:BookStoreManagement.Converter"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
         ResizeMode="CanMinimize"
         Background="White"
         Loaded="Config_Loaded"
         Title="Cấu hình" Height="360" Width="420">
+    <Window.Resources>
+        <ResourceDictionary>
+            <local:RelativeToAbsoluteConverter x:Key="AbsoluteConverter"/>
+            <local:ToMoneyConverter x:Key="MoneyConverter"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../Resource/UIResource.xaml"/>
+                <ResourceDictionary Source="../../Resource/ColorResource.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Name="MainContainer">
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="0.5*"/>
         </Grid.RowDefinitions>
 
+        <!--Mẹo nhỏ-->
+        <Button x:Name="HintButton"
+                Content="❔"
+                Grid.Row="0"
+                Width="18"
+                Height="18"
+                FontSize="10"
+                Style="{StaticResource RoundedButtonStyle}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="5,5,0,0"
+                Background="Transparent" Click="HintButton_Click"/>
+        
+        
         <!--Hiển thị title-->
         <TextBlock
             Text="Cấu hình DataBase"
             Margin="10"
-            Foreground="#0B666A"
+            Foreground="Brown"
             VerticalAlignment="Center"
             HorizontalAlignment="Center"
             FontSize="20"
@@ -34,11 +58,10 @@
 
         <Border Grid.Row="1" 
                 BorderThickness="1"
-                BorderBrush="#186F6D" 
-                CornerRadius="5" 
+                BorderBrush="Black" 
                 Background="White" 
                 Height="32" 
-                Width="275" Margin="5" 
+                Width="275" Margin="20" 
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom">
             <Grid Width="265" Margin="0" HorizontalAlignment="Center">
@@ -67,17 +90,23 @@
                 </TextBlock>
             </Grid>
         </Border>
+        <TextBlock FontSize="10"
+                   Grid.Row="1"
+                   VerticalAlignment="Bottom"
+                   Margin="75,0,0,5">
+            <Run Text="Ví dụ: " FontWeight="Medium"/>
+            <Run Text=".\SQLEXPRESS" Foreground="Green"/>
+        </TextBlock>
 
-       
+
 
         <Border Grid.Row="2" 
                 BorderThickness="1" 
-                BorderBrush="#186F6D" 
-                CornerRadius="5" 
+                BorderBrush="Black" 
                 Background="White" 
                 Height="32" 
                 Width="275" 
-                Margin="5" 
+                Margin="20" 
                 HorizontalAlignment="Center"
                 VerticalAlignment="Bottom">
             <Grid Width="265" Margin="0" HorizontalAlignment="Center">
@@ -103,6 +132,13 @@
             </Grid>
         </Border>
 
+        <TextBlock FontSize="10"
+                   Grid.Row="2"
+                   VerticalAlignment="Bottom"
+                   Margin="75,0,0,5">
+            <Run Text="Ví dụ: " FontWeight="Medium"/>
+            <Run Text="DreamBookDB" Foreground="Green"/>
+        </TextBlock>
         <!-- NÚT KẾT NỐI -->
         <Button
             Grid.Row="4" 
@@ -111,19 +147,62 @@
             Name="Button"
             Width="110"
             Height="35"    
-            Background="#B7BCCC"
+            Background="Aqua"
             BorderThickness="0.5"
             Click="ConnectButton_Click"
             >
             <StackPanel
             Orientation="Horizontal">
-              
                 <TextBlock
                     FontWeight="Bold"
-                    Foreground="#0B666A"
                     VerticalAlignment="Center"
                 >Kết nối</TextBlock>
             </StackPanel>
         </Button>
+
+        <!--Hiển thị thông tin gợi ý-->
+        <Border Name="HintBorder"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                CornerRadius="10" 
+                Background="{StaticResource ColorBackground1}" 
+                BorderBrush="AliceBlue" 
+                BorderThickness="2"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                Width="200"
+                Height ="60"
+                Margin="8,22,20,0" 
+                Visibility="Hidden">
+            <Border.Effect>
+                <DropShadowEffect
+                    Color="Black"
+                    Direction="320"
+                    ShadowDepth="5"
+                    BlurRadius="10"
+                    Opacity="0.5" />
+            </Border.Effect>
+            <StackPanel>
+                <Button x:Name="CloseHint"
+                        Content="❌"
+                        FontSize="9"
+                        HorizontalContentAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Width="15"
+                        Height="15"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Margin="0,0,2,0" Click="CloseHint_Click"/>
+                <TextBlock Text="Lưu ý: chạy file BookStoreManagement.exe với quyền admin để khởi động chương trình"
+                           TextWrapping="Wrap"
+                           FontSize="9"
+                           Foreground="Red"
+                           Margin="4,2,6,0"/>
+
+            </StackPanel>
+        </Border>
+
+        
     </Grid>
 </Window>

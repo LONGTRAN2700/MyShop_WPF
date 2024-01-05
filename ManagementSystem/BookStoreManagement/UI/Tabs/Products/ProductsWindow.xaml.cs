@@ -19,7 +19,7 @@ using ControlzEx.Theming;
 using static System.Net.Mime.MediaTypeNames;
 using ClosedXML.Excel;
 using Microsoft.Win32;
-
+using System.Globalization;
 
 namespace BookStoreManagement.Products
 {
@@ -177,6 +177,23 @@ namespace BookStoreManagement.Products
 
 
         //Tính năng tìm kiếm sách 
+        public static string RemoveDiacritics(string text)
+        {
+            var normalizedString = text.Normalize(NormalizationForm.FormD);
+            var stringBuilder = new StringBuilder();
+
+            foreach (var character in normalizedString)
+            {
+                var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(character);
+                if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(character);
+                }
+            }
+
+            return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+        }
+
         private void SearchTextBox_KeyUp(object sender, KeyEventArgs e)
         {
             BindingList<Product> _lib = new BindingList<Product>();
@@ -186,7 +203,9 @@ namespace BookStoreManagement.Products
 
             LoadDataBase(_lib, sql);
             
-            string searchText = SearchTextBox.Text.ToLower();
+            //string searchText = SearchTextBox.Text.ToLower();
+
+            string searchText = RemoveDiacritics(SearchTextBox.Text.ToLower());
 
             if (string.IsNullOrWhiteSpace(searchText))
             {
@@ -194,8 +213,12 @@ namespace BookStoreManagement.Products
                 return;
             }
 
+            //var filteredItems = _lib.Where(book =>
+            //    book.BookName.ToLower().Contains(searchText)).ToList();
+
             var filteredItems = _lib.Where(book =>
-                book.BookName.ToLower().Contains(searchText)).ToList();
+                  RemoveDiacritics(book.BookName.ToLower()).Contains(searchText)).ToList();
+
 
             if (filteredItems.Any())
             {

@@ -16,6 +16,7 @@ using System.Globalization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Configuration;
 using System.Security.Cryptography;
+using BookStoreManagement.UI.Config;
 
 namespace BookStoreManagement
 {
@@ -140,6 +141,13 @@ namespace BookStoreManagement
         {
             //Nếu mật khẩu được lưu sẽ tự động hiển thị tài khoản mật khẩu ra màn hình cho việc đăng nhập lần sau
             UnmaskPass();
+        }
+
+        private void FixButton_Click(object sender, RoutedEventArgs e)
+        {
+            var configScreen = new ConfigWindow();
+            configScreen.Show();
+            this.Close();
         }
     }
     
